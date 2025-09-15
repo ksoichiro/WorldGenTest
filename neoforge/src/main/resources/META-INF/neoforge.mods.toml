@@ -1,0 +1,35 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MIT"
+issuesURL="https://github.com/ksoichiro/WorldGenTest/issues"
+
+[[mods]]
+modId="worldgentest"
+version="${version}"
+displayName="WorldGenTest"
+updateJSONURL=""
+displayURL="https://github.com/ksoichiro/WorldGenTest"
+logoFile=""
+credits=""
+authors="Example Author"
+description='''
+A sample Minecraft mod for NeoForge platform testing custom biomes and blocks.
+Features crystal blocks and world generation techniques using pure NeoForge implementation.
+'''
+
+
+[[dependencies.worldgentest]]
+modId="neoforge"
+type="required"
+versionRange="[21.1,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.worldgentest]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1,1.22)"
+ordering="NONE"
+side="BOTH"
+
+# Architectury依存関係を削除 - 純粋なNeoForge実装

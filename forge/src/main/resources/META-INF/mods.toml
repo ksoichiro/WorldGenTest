@@ -1,0 +1,39 @@
+modLoader="javafml"
+loaderVersion="[51,)"
+license="MIT"
+issuesURL="https://github.com/ksoichiro/WorldGenTest/issues"
+
+[[mods]]
+modId="worldgentest"
+version="${version}"
+displayName="WorldGenTest"
+updateJSONURL=""
+displayURL="https://github.com/ksoichiro/WorldGenTest"
+logoFile=""
+credits=""
+authors="Example Author"
+description='''
+A sample Minecraft mod showcasing Architectury framework for cross-platform mod development.
+Features custom biomes and blocks for testing world generation techniques.
+'''
+
+[[dependencies.worldgentest]]
+modId="forge"
+type="required"
+versionRange="[51.0,)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.worldgentest]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1,1.22)"
+ordering="NONE"
+side="BOTH"
+
+[[dependencies.worldgentest]]
+modId="architectury"
+type="required"
+versionRange="[13.0,)"
+ordering="AFTER"
+side="BOTH"

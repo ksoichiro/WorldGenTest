@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "id": "worldgentest",
+  "version": "${version}",
+  "name": "WorldGenTest",
+  "description": "A sample Minecraft mod for Fabric platform testing custom biomes and blocks.",
+  "authors": [
+    "Example Author"
+  ],
+  "contact": {
+    "homepage": "https://github.com/ksoichiro/WorldGenTest",
+    "sources": "https://github.com/ksoichiro/WorldGenTest"
+  },
+  "license": "MIT",
+  "icon": "",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.example.worldgentest.WorldGenTestFabric"
+    ]
+  },
+  "mixins": [],
+  "depends": {
+    "fabricloader": ">=0.15.11",
+    "fabric-api": "*",
+    "minecraft": "~1.21.1",
+    "java": ">=21"
+  },
+  "suggests": {}
+}

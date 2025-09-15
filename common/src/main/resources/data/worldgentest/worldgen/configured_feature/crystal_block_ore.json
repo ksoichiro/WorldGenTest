@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:block_match",
+          "block": "minecraft:stone"
+        },
+        "state": {
+          "Name": "worldgentest:crystal_block"
+        }
+      }
+    ],
+    "size": 9
+  }
+}
