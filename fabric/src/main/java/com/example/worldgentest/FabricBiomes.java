@@ -30,27 +30,21 @@ public class FabricBiomes {
         RegistryAccess registryAccess = server.registryAccess();
         Registry<Biome> biomeRegistry = registryAccess.registryOrThrow(Registries.BIOME);
 
-        // バイオームを直接登録（実行時登録）
-        try {
-            // CrystallineCavesBiomeクラスからバイオーム作成
-            Biome crystallineCaves = CrystallineCavesBiome.create();
-
-            System.out.println("Crystalline Caves biome created successfully");
-            System.out.println("Biome temperature: " + crystallineCaves.getBaseTemperature());
-            System.out.println("Biome precipitation: " + crystallineCaves.hasPrecipitation());
-
-            // 既存のバイオーム一覧を表示
-            System.out.println("Currently registered biomes:");
-            for (var biomeKey : biomeRegistry.keySet()) {
-                if (biomeKey.toString().contains("worldgentest") ||
-                    biomeKey.toString().contains("crystalline")) {
-                    System.out.println("  - " + biomeKey);
-                }
+        // 登録されたバイオーム一覧を確認
+        System.out.println("Checking for WorldGenTest biomes:");
+        boolean foundCustomBiomes = false;
+        for (var biomeKey : biomeRegistry.keySet()) {
+            if (biomeKey.toString().contains("worldgentest") ||
+                biomeKey.toString().contains("crystalline")) {
+                System.out.println("  - " + biomeKey);
+                foundCustomBiomes = true;
             }
+        }
 
-        } catch (Exception e) {
-            System.out.println("Error creating Crystalline Caves biome: " + e.getMessage());
-            e.printStackTrace();
+        if (!foundCustomBiomes) {
+            System.out.println("No custom biomes found. They should be loaded via datapack.");
+        } else {
+            System.out.println("Custom biomes loaded successfully!");
         }
     }
 

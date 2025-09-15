@@ -52,7 +52,7 @@ public class FabricCommands {
 
                     try {
                         // カスタムバイオーム作成テスト
-                        Biome testBiome = CrystallineCavesBiome.create();
+                        Biome testBiome = ModBiomes.createCrystallineCaves();
 
                         player.sendSystemMessage(Component.literal("✅ Crystalline Cavesバイオーム作成成功"));
                         player.sendSystemMessage(Component.literal(
