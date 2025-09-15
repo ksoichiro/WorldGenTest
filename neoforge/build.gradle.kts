@@ -8,6 +8,8 @@ neoForge {
     mods {
         create("worldgentest") {
             sourceSet(sourceSets.main.get())
+            // commonプロジェクトのソースも含める
+            sourceSet(project(":common").sourceSets.main.get())
         }
     }
 
@@ -31,6 +33,9 @@ dependencies {
 }
 
 tasks.processResources {
+    from(project(":common").sourceSets.main.get().resources)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
     inputs.property("version", project.version)
 
     filesMatching("META-INF/neoforge.mods.toml") {

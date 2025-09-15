@@ -12,7 +12,18 @@ dependencies {
     implementation(project(":common"))
 }
 
+// リソースをcommonプロジェクトから継承
+loom {
+    if (project(":common").extensions.findByType<net.fabricmc.loom.api.LoomGradleExtensionAPI>()?.accessWidenerPath != null) {
+        accessWidenerPath = project(":common").loom.accessWidenerPath
+    }
+}
+
+// commonプロジェクトのリソースをprocessResourcesに含める
 tasks.processResources {
+    from(project(":common").sourceSets.main.get().resources)
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
     inputs.property("version", project.version)
 
     filesMatching("fabric.mod.json") {

@@ -1,7 +1,6 @@
 package com.example.worldgentest;
 
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.biome.Biome;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -17,5 +16,8 @@ public class NeoForgeBiomes {
 
     public static void register(IEventBus modEventBus) {
         BIOMES.register(modEventBus);
+        System.out.println("NeoForge biomes initialized - using programmatic + datapack registration");
+        System.out.println("crystalline_caves biome is registered and ready!");
+        System.out.println("Use '/locate biome worldgentest:crystalline_caves' to find it.");
     }
 }
