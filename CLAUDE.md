@@ -123,6 +123,11 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 4. **レシピカテゴリとアドバンスメントディレクトリは別概念**:
    - レシピのcategoryフィールド: `misc`, `building_blocks`, `decorations`等
    - アドバンスメントディレクトリ: `recipe/decorations/`, `recipe/food/`等
+5. **Modレシピには必ずアドバンスメントを追加**:
+   - Minecraftの自動発見システムはバニラレシピ（`minecraft:` namespace）に最適化
+   - カスタムnamespace（例：`worldgentest:`）のレシピは自動発見されない
+   - レシピブック表示のため、Modレシピには対応するアドバンスメントファイルが必須
+   - アドバンスメントなしのModレシピは材料入手時にレシピブックに表示されない
 
 ### Architecturyでの開発
 1. **共通コード**: できるだけcommonモジュールに実装
