@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "D": {
+      "item": "minecraft:diamond"
+    }
+  },
+  "pattern": [
+    " G ",
+    "GDG",
+    " G "
+  ],
+  "result": {
+    "count": 1,
+    "id": "worldgentest:crystal_block"
+  }
+}

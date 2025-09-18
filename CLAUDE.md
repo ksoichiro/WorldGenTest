@@ -59,7 +59,7 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 ### 🔄 短期計画（1-2週間）
 
 #### レシピシステム
-- [ ] クリスタルブロックのクラフトレシピ
+- [x] クリスタルブロックのクラフトレシピ（Minecraft 1.21.1対応完了）
 - [ ] 精錬レシピ
 - [ ] カスタムレシピタイプ
 
@@ -109,11 +109,27 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 
 ## 開発時の注意事項
 
+### Minecraft 1.21.1での重要な変更点（2025年9月確認）
+1. **リソースディレクトリ構造変更**:
+   - `advancements` → `advancement` (単数形)
+   - `recipes` → `recipe` (単数形)
+   - この変更により従来の複数形ディレクトリは認識されない
+2. **レシピフォーマット変更**:
+   - 旧: `"G": {"item": "minecraft:glass"}`
+   - 新: `"G": "minecraft:glass"` (簡潔な文字列形式)
+3. **アドバンスメントフォーマット変更**:
+   - 旧: `"items": ["minecraft:diamond"]` (配列)
+   - 新: `"items": "minecraft:diamond"` (文字列)
+4. **レシピカテゴリとアドバンスメントディレクトリは別概念**:
+   - レシピのcategoryフィールド: `misc`, `building_blocks`, `decorations`等
+   - アドバンスメントディレクトリ: `recipe/decorations/`, `recipe/food/`等
+
 ### Architecturyでの開発
 1. **共通コード**: できるだけcommonモジュールに実装
 2. **プラットフォーム固有**: 必要最小限に留める
 3. **@ExpectPlatform**: プラットフォーム固有の処理で使用
 4. **registries**: Architecturyの登録システムを活用
+5. **リソース同期問題**: 必要に応じてcommonとplatform-specificモジュール両方にリソースを配置
 
 ### バージョン管理
 1. **依存関係**: 定期的にバージョンアップデート
