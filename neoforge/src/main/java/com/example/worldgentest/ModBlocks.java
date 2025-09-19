@@ -27,6 +27,10 @@ public class ModBlocks {
         new BlockItem(CRYSTAL_BLOCK.get(), new Item.Properties())
     );
 
+    public static final Supplier<Item> CRYSTAL_SHARD = ITEMS.register("crystal_shard", () ->
+        new Item(new Item.Properties())
+    );
+
     public static void register(IEventBus modEventBus) {
         BLOCKS.register(modEventBus);
         ITEMS.register(modEventBus);

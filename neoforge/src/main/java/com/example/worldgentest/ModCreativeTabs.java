@@ -19,6 +19,7 @@ public class ModCreativeTabs {
             .icon(() -> new ItemStack(ModBlocks.CRYSTAL_BLOCK.get()))
             .displayItems((parameters, output) -> {
                 output.accept(ModBlocks.CRYSTAL_BLOCK_ITEM.get());
+                output.accept(ModBlocks.CRYSTAL_SHARD.get());
             })
             .build()
     );

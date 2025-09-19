@@ -17,6 +17,7 @@ public class FabricModCreativeTabs {
             .icon(() -> new ItemStack(FabricModBlocks.CRYSTAL_BLOCK_ITEM))
             .displayItems((parameters, output) -> {
                 output.accept(FabricModBlocks.CRYSTAL_BLOCK_ITEM);
+                output.accept(FabricModBlocks.CRYSTAL_SHARD);
             })
             .build()
     );

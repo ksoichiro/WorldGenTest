@@ -1,5 +1,6 @@
 {
   "block.worldgentest.crystal_block": "Crystal Block",
+  "item.worldgentest.crystal_shard": "Crystal Shard",
   "itemGroup.worldgentest.worldgentest": "WorldGenTest",
   "biome.worldgentest.crystalline_caves": "Crystalline Caves"
 }

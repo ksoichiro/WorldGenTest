@@ -1,5 +1,6 @@
 {
   "block.worldgentest.crystal_block": "クリスタルブロック",
+  "item.worldgentest.crystal_shard": "クリスタルの欠片",
   "itemGroup.worldgentest.worldgentest": "WorldGenTest",
   "biome.worldgentest.crystalline_caves": "クリスタルの洞窟"
 }

@@ -29,6 +29,12 @@ public class FabricModBlocks {
         new BlockItem(CRYSTAL_BLOCK, new Item.Properties())
     );
 
+    public static final Item CRYSTAL_SHARD = Registry.register(
+        BuiltInRegistries.ITEM,
+        ResourceLocation.fromNamespaceAndPath(MOD_ID, "crystal_shard"),
+        new Item(new Item.Properties())
+    );
+
     public static void register() {
         // 登録は上記で完了
     }
