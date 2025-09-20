@@ -17,6 +17,9 @@
   "entrypoints": {
     "main": [
       "com.example.worldgentest.WorldGenTestFabric"
+    ],
+    "client": [
+      "com.example.worldgentest.WorldGenTestFabricClient"
     ]
   },
   "mixins": [],

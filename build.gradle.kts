@@ -1,6 +1,6 @@
 plugins {
     id("architectury-plugin") version "3.4-SNAPSHOT"
-    id("dev.architectury.loom") version "1.6-SNAPSHOT" apply false
+    id("dev.architectury.loom") version "1.11-SNAPSHOT" apply false
     id("net.neoforged.moddev") version "2.0.26-beta" apply false
     id("net.minecraftforge.gradle") version "6.0.24" apply false
 }
@@ -35,7 +35,7 @@ allprojects {
 }
 
 subprojects {
-    if (project.name != "neoforge") {
+    if (project.name != "neoforge" && project.name != "fabric") {
         apply(plugin = "dev.architectury.loom")
 
         extensions.configure<net.fabricmc.loom.api.LoomGradleExtensionAPI> {
