@@ -19,72 +19,73 @@ public class CrystalGolemModel<T extends FabricCrystalGolemEntity> extends Entit
     public static final EntityModelLayer LAYER_LOCATION = new EntityModelLayer(
             Identifier.of(WorldGenTest.MOD_ID, "crystal_golem"), "main");
 
-    private final ModelPart head;
-    private final ModelPart body;
-    private final ModelPart leftArm;
-    private final ModelPart rightArm;
-    private final ModelPart leftLeg;
-    private final ModelPart rightLeg;
+    private final ModelPart Body;
+    private final ModelPart Head;
+    private final ModelPart RightArm;
+    private final ModelPart LeftArm;
+    private final ModelPart RightLeg;
+    private final ModelPart LeftLeg;
 
     public CrystalGolemModel(ModelPart root) {
-        this.head = root.getChild("head");
-        this.body = root.getChild("body");
-        this.leftArm = root.getChild("left_arm");
-        this.rightArm = root.getChild("right_arm");
-        this.leftLeg = root.getChild("left_leg");
-        this.rightLeg = root.getChild("right_leg");
+        this.Body = root.getChild("Body");
+        this.Head = root.getChild("Head");
+        this.RightArm = root.getChild("RightArm");
+        this.LeftArm = root.getChild("LeftArm");
+        this.RightLeg = root.getChild("RightLeg");
+        this.LeftLeg = root.getChild("LeftLeg");
     }
 
     public static TexturedModelData createBodyLayer() {
         ModelData modelData = new ModelData();
         ModelPartData modelPartData = modelData.getRoot();
 
-        ModelPartData head = modelPartData.addChild("head", ModelPartBuilder.create()
-                .uv(0, 0).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F),
-                ModelTransform.pivot(0.0F, 4.0F, 0.0F));
-
-        ModelPartData body = modelPartData.addChild("body", ModelPartBuilder.create()
+        ModelPartData Body = modelPartData.addChild("Body", ModelPartBuilder.create()
                 .uv(16, 16).cuboid(-4.0F, 0.0F, -2.0F, 8.0F, 12.0F, 4.0F),
-                ModelTransform.pivot(0.0F, 4.0F, 0.0F));
+                ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
-        ModelPartData leftArm = modelPartData.addChild("left_arm", ModelPartBuilder.create()
-                .uv(40, 16).cuboid(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F),
-                ModelTransform.pivot(5.0F, 6.0F, 0.0F));
+        ModelPartData Head = modelPartData.addChild("Head", ModelPartBuilder.create()
+                .uv(0, 0).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F),
+                // .uv(32, 0).cuboid(-4.0F, -8.0F, -4.0F, 8.0F, 8.0F, 8.0F, new Dilation(0.5F)), // hat layer
+                ModelTransform.of(0.0F, 0.0F, 0.0F, 0.0524F, -0.1745F, 0.0F));
 
-        ModelPartData rightArm = modelPartData.addChild("right_arm", ModelPartBuilder.create()
-                .uv(40, 16).mirrored().cuboid(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F),
-                ModelTransform.pivot(-5.0F, 6.0F, 0.0F));
+        ModelPartData RightArm = modelPartData.addChild("RightArm", ModelPartBuilder.create()
+                .uv(40, 16).cuboid(-3.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F),
+                ModelTransform.of(-5.0F, 2.0F, 0.0F, -1.3963F, -0.0873F, 0.0F));
 
-        ModelPartData leftLeg = modelPartData.addChild("left_leg", ModelPartBuilder.create()
-                .uv(0, 16).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 8.0F, 4.0F),
-                ModelTransform.pivot(2.0F, 16.0F, 0.0F));
+        ModelPartData LeftArm = modelPartData.addChild("LeftArm", ModelPartBuilder.create()
+                .uv(40, 16).mirrored().cuboid(-1.0F, -2.0F, -2.0F, 4.0F, 12.0F, 4.0F),
+                ModelTransform.of(5.0F, 2.0F, 0.0F, -1.309F, 0.0873F, 0.0F));
 
-        ModelPartData rightLeg = modelPartData.addChild("right_leg", ModelPartBuilder.create()
-                .uv(0, 16).mirrored().cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 8.0F, 4.0F),
-                ModelTransform.pivot(-2.0F, 16.0F, 0.0F));
+        ModelPartData RightLeg = modelPartData.addChild("RightLeg", ModelPartBuilder.create()
+                .uv(0, 16).cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F),
+                ModelTransform.of(-1.9F, 12.0F, 0.0F, -0.4363F, 0.0F, 0.0873F));
 
-        return TexturedModelData.of(modelData, 64, 32);
+        ModelPartData LeftLeg = modelPartData.addChild("LeftLeg", ModelPartBuilder.create()
+                .uv(0, 16).mirrored().cuboid(-2.0F, 0.0F, -2.0F, 4.0F, 12.0F, 4.0F),
+                ModelTransform.of(1.9F, 12.0F, 0.0F, 0.3491F, 0.0F, 0.0F));
+
+        return TexturedModelData.of(modelData, 64, 64);
     }
 
     @Override
     public void setAngles(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        this.head.yaw = netHeadYaw * ((float)Math.PI / 180F);
-        this.head.pitch = headPitch * ((float)Math.PI / 180F);
+        this.Head.yaw = netHeadYaw * ((float)Math.PI / 180F);
+        this.Head.pitch = headPitch * ((float)Math.PI / 180F);
 
-        this.rightArm.pitch = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 2.0F * limbSwingAmount * 0.5F;
-        this.leftArm.pitch = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F;
+        this.RightArm.pitch = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 2.0F * limbSwingAmount * 0.5F;
+        this.LeftArm.pitch = MathHelper.cos(limbSwing * 0.6662F) * 2.0F * limbSwingAmount * 0.5F;
 
-        this.rightLeg.pitch = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-        this.leftLeg.pitch = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+        this.RightLeg.pitch = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
+        this.LeftLeg.pitch = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
     }
 
     @Override
     public void render(MatrixStack matrixStack, VertexConsumer vertexConsumer, int light, int overlay, int color) {
-        head.render(matrixStack, vertexConsumer, light, overlay, color);
-        body.render(matrixStack, vertexConsumer, light, overlay, color);
-        leftArm.render(matrixStack, vertexConsumer, light, overlay, color);
-        rightArm.render(matrixStack, vertexConsumer, light, overlay, color);
-        leftLeg.render(matrixStack, vertexConsumer, light, overlay, color);
-        rightLeg.render(matrixStack, vertexConsumer, light, overlay, color);
+        Body.render(matrixStack, vertexConsumer, light, overlay, color);
+        Head.render(matrixStack, vertexConsumer, light, overlay, color);
+        RightArm.render(matrixStack, vertexConsumer, light, overlay, color);
+        LeftArm.render(matrixStack, vertexConsumer, light, overlay, color);
+        RightLeg.render(matrixStack, vertexConsumer, light, overlay, color);
+        LeftLeg.render(matrixStack, vertexConsumer, light, overlay, color);
     }
 }
