@@ -1,16 +1,16 @@
 package com.example.worldgentest;
 
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.world.level.biome.Biome;
+import net.minecraft.registry.RegistryKey;
+import net.minecraft.registry.RegistryKeys;
+import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.Biome;
 
 public class FabricBiomes {
 
     // バイオームキーの定義
-    public static final ResourceKey<Biome> CRYSTALLINE_CAVES = ResourceKey.create(
-        Registries.BIOME,
-        ResourceLocation.fromNamespaceAndPath("worldgentest", "crystalline_caves")
+    public static final RegistryKey<Biome> CRYSTALLINE_CAVES = RegistryKey.of(
+        RegistryKeys.BIOME,
+        Identifier.of("worldgentest", "crystalline_caves")
     );
 
     public static void register() {

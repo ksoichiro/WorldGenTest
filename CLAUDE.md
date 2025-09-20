@@ -212,3 +212,48 @@ Semantic Versioningに従う：
 - バグ修正
 - 破壊的変更
 - 既知の問題
+
+## 開発時のトラブルシューティング・学習事項
+
+### エンティティ登録でのmapping問題（2025年9月）
+
+#### 問題
+- Minecraft 1.21.1 + Architectury + Fabric環境でエンティティ登録時にClassNotFoundError発生
+- 具体的エラー：`java.lang.ClassNotFoundException: net.minecraft.class_2378`
+- `net.minecraft.class_1429`（ResourceLocation関連）のmapping問題も発生
+
+#### 原因と対策
+1. **開発環境mappingの不整合**
+   - 開発時とランタイムでのmapping差異が原因
+   - commonモジュールでのエンティティ登録がplatform-specificなクラスにアクセスしようとしている
+
+2. **Platform-specificコードの分離不足**
+   - エンティティ登録はプラットフォーム固有処理として扱う必要がある
+   - `FabricModEntities.java`として分離したが、まだmapping問題が残存
+
+3. **ResourceLocation使用方法の変更**
+   - 旧: `new ResourceLocation(MOD_ID, "name")`
+   - 新: `ResourceLocation.parse(MOD_ID + ":name")`
+   - コンストラクタがprivateアクセスになった影響
+
+#### 一時的対応
+- エンティティ登録を完全にコメントアウトして基本機能（ブロック・バイオーム）の動作確認を優先
+- 基本機能が正常動作することを確認してからエンティティ機能の再実装を検討
+
+#### 今後の対応方針
+1. **より詳細なmapping調査**
+   - 開発環境とランタイム環境でのmapping差異を詳しく調査
+   - 正しいmapped nameの使用を確認
+
+2. **代替アプローチの検討**
+   - Architecturyの `@ExpectPlatform` パターンの使用
+   - より確実なプラットフォーム分離方法の採用
+
+3. **段階的実装**
+   - まず基本機能（ブロック・バイオーム・レシピ）を完全に動作させる
+   - その後、安定した方法でエンティティ機能を追加
+
+#### 学習ポイント
+- Minecraft ModのEntity実装は最も複雑な部分の一つ
+- Architecturyでのmulti-platform開発では、platform-specificな処理の適切な分離が重要
+- 開発環境特有の問題と実際のバグを区別して対応することが重要

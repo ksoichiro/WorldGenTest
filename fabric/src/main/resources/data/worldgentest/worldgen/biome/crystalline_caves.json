@@ -74,6 +74,14 @@
         "minCount": 8,
         "maxCount": 8
       }
+    ],
+    "creature": [
+      {
+        "type": "worldgentest:crystal_golem",
+        "weight": 80,
+        "minCount": 1,
+        "maxCount": 3
+      }
     ]
   },
   "spawn_costs": {},

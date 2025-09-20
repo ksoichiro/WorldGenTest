@@ -1,5 +1,6 @@
 package com.example.worldgentest;
 
+import com.example.worldgentest.entity.ModEntities;
 import net.minecraft.sounds.Musics;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -45,6 +46,7 @@ public class ModBiomes {
                 .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.SLIME, 100, 4, 4))
                 .addSpawn(MobCategory.MONSTER, new MobSpawnSettings.SpawnerData(EntityType.ENDERMAN, 10, 1, 4))
                 .addSpawn(MobCategory.AMBIENT, new MobSpawnSettings.SpawnerData(EntityType.BAT, 10, 8, 8))
+                .addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.CRYSTAL_GOLEM, 5, 1, 2))
                 .build())
             .generationSettings(generationBuilder.build())
             .build();
