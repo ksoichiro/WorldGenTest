@@ -54,6 +54,12 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 - Mob生成設定
 - 地形生成設定（洞窟、鉱石）
 
+#### カスタムエンティティ
+- [x] Crystal Golem（クリスタルゴーレム）- Fabric/NeoForge両対応
+- エンティティ属性、AI行動の実装
+- カスタムモデル・レンダリング・テクスチャ
+- プラットフォーム固有の登録システム
+
 ## 今後の機能拡張計画
 
 ### 🔄 短期計画（1-2週間）
@@ -76,9 +82,9 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 ### 🎯 中期計画（1-2ヶ月）
 
 #### エンティティ
-- [ ] クリスタルゴーレム（友好Mob）
+- [x] クリスタルゴーレム（友好Mob）- 完了
 - [ ] クリスタルスパイダー（敵対Mob）
-- [ ] カスタムエンティティレンダリング
+- [x] カスタムエンティティレンダリング - 完了
 
 #### 高度なワールド生成
 - [ ] マルチバイオーム構造
@@ -134,7 +140,14 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 2. **プラットフォーム固有**: 必要最小限に留める
 3. **@ExpectPlatform**: プラットフォーム固有の処理で使用
 4. **registries**: Architecturyの登録システムを活用
-5. **リソース同期問題**: 必要に応じてcommonとplatform-specificモジュール両方にリソースを配置
+5. **リソース管理の重要原則**:
+   - **commonのリソースは自動共有**: `common/src/main/resources/`内のassetsとdataは、ビルド時に自動的にfabricとneoforgeにコピーされる
+   - **プラットフォーム固有リソースのみ個別配置**: プラットフォーム間で異なる必要がある場合のみ、`fabric/src/main/resources/`や`neoforge/src/main/resources/`に配置
+   - **重複リソースの回避**: 同じリソースをcommonとプラットフォーム固有の両方に置くと競合が発生する可能性がある
+   - **ベストプラクティス**:
+     - テクスチャ、モデル、言語ファイルなど共通リソースは`common/src/main/resources/`に配置
+     - プラットフォーム固有の設定ファイル（mod.jsonなど）のみプラットフォーム側に配置
+     - リソース変更が必要な場合のみプラットフォーム側にオーバーライド用ファイルを配置
 
 ### バージョン管理
 1. **依存関係**: 定期的にバージョンアップデート
@@ -257,3 +270,27 @@ Semantic Versioningに従う：
 - Minecraft ModのEntity実装は最も複雑な部分の一つ
 - Architecturyでのmulti-platform開発では、platform-specificな処理の適切な分離が重要
 - 開発環境特有の問題と実際のバグを区別して対応することが重要
+
+### エンティティ実装の成功パターン（2025年9月解決）
+
+#### 解決した実装アプローチ
+1. **プラットフォーム完全分離方式の採用**
+   - commonモジュールでエンティティクラス、モデル、レンダラーを実装
+   - 各プラットフォーム（fabric/neoforge）で独立したエンティティ登録システムを構築
+   - プラットフォーム固有の属性登録とクライアントレンダリング登録を実装
+
+2. **NeoForge固有の実装要件**
+   - `EntityAttributeCreationEvent`でのエンティティ属性登録が必須
+   - `EntityRenderersEvent.RegisterLayerDefinitions`でのモデルレイヤー登録が必要
+   - `EntityRenderersEvent.RegisterRenderers`でのレンダラー登録
+   - 適切なEventBusSubscriber設定とクライアント専用アノテーション（@Dist.CLIENT）
+
+3. **リソース統合の実践**
+   - エンティティテクスチャをcommon/resources/assetsに統合
+   - 重複ファイルの削除によるビルドエラー回避
+   - Architecturyの自動リソース共有機能の活用
+
+#### 成功要因
+- プラットフォーム固有の登録システムを理解し、それぞれに適した実装方法を採用
+- Architecturyの自動リソース共有を活用してコード重複を最小化
+- 段階的なテストとエラー解析による問題の特定と解決
