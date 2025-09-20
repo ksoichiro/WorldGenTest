@@ -1,11 +1,11 @@
 package com.example.worldgentest;
 
-import com.example.worldgentest.entity.ModEntities;
+// ModEntities import removed
 
 public class WorldGenTest {
     public static final String MOD_ID = "worldgentest";
 
     public static void init() {
-        ModEntities.register();
+        // プラットフォーム固有の初期化はそれぞれのプラットフォームで実行
     }
 }
