@@ -7,6 +7,15 @@ import net.minecraft.world.item.PickaxeItem;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ShovelItem;
 import net.minecraft.world.item.HoeItem;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import com.example.worldgentest.ModArmorMaterials;
+import net.minecraft.core.Holder;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.item.crafting.Ingredient;
+import java.util.List;
+import java.util.Map;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -42,6 +51,44 @@ public class ModBlocks {
     public static final Supplier<Item> CRYSTAL_SHARD = ITEMS.register("crystal_shard", () ->
         new Item(new Item.Properties())
     );
+
+    // クリスタル防具材料（NeoForge用）
+    public static final Holder<ArmorMaterial> CRYSTAL_ARMOR_MATERIAL = Holder.direct(new ArmorMaterial(
+        Map.of(
+            ArmorItem.Type.BOOTS, 4,        // 防御力（ダイヤ+0.5）
+            ArmorItem.Type.LEGGINGS, 6,     // 防御力（ダイヤ+0.5）
+            ArmorItem.Type.CHESTPLATE, 8,   // 防御力（ダイヤ+0.5）
+            ArmorItem.Type.HELMET, 4        // 防御力（ダイヤ+0.5）
+        ),
+        10, // エンチャント適性
+SoundEvents.ARMOR_EQUIP_DIAMOND, // 装備音
+        () -> Ingredient.of(CRYSTAL_SHARD.get()), // 修理成分
+        List.of(
+            new ArmorMaterial.Layer(
+                ResourceLocation.parse("worldgentest:crystal")
+            )
+        ),
+        2.0F, // タフネス
+        0.0F  // ノックバック耐性
+    ));
+
+    // クリスタル防具
+    public static final Supplier<Item> CRYSTAL_HELMET = ITEMS.register("crystal_helmet", () ->
+        new ArmorItem(CRYSTAL_ARMOR_MATERIAL, ArmorItem.Type.HELMET, new Item.Properties())
+    );
+
+    public static final Supplier<Item> CRYSTAL_CHESTPLATE = ITEMS.register("crystal_chestplate", () ->
+        new ArmorItem(CRYSTAL_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE, new Item.Properties())
+    );
+
+    public static final Supplier<Item> CRYSTAL_LEGGINGS = ITEMS.register("crystal_leggings", () ->
+        new ArmorItem(CRYSTAL_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS, new Item.Properties())
+    );
+
+    public static final Supplier<Item> CRYSTAL_BOOTS = ITEMS.register("crystal_boots", () ->
+        new ArmorItem(CRYSTAL_ARMOR_MATERIAL, ArmorItem.Type.BOOTS, new Item.Properties())
+    );
+
 
     // クリスタルツール（NeoForgeのコンストラクタ仕様に合わせる）
     public static final Supplier<Item> CRYSTAL_SWORD = ITEMS.register("crystal_sword", () ->

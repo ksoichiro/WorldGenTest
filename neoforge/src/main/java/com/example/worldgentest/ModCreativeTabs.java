@@ -25,6 +25,10 @@ public class ModCreativeTabs {
                 output.accept(ModBlocks.CRYSTAL_AXE.get());
                 output.accept(ModBlocks.CRYSTAL_SHOVEL.get());
                 output.accept(ModBlocks.CRYSTAL_HOE.get());
+                output.accept(ModBlocks.CRYSTAL_HELMET.get());
+                output.accept(ModBlocks.CRYSTAL_CHESTPLATE.get());
+                output.accept(ModBlocks.CRYSTAL_LEGGINGS.get());
+                output.accept(ModBlocks.CRYSTAL_BOOTS.get());
             })
             .build()
     );

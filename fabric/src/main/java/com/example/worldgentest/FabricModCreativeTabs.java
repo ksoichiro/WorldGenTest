@@ -23,6 +23,10 @@ public class FabricModCreativeTabs {
                 entries.add(FabricModItems.CRYSTAL_AXE);
                 entries.add(FabricModItems.CRYSTAL_SHOVEL);
                 entries.add(FabricModItems.CRYSTAL_HOE);
+                entries.add(FabricModItems.CRYSTAL_HELMET);
+                entries.add(FabricModItems.CRYSTAL_CHESTPLATE);
+                entries.add(FabricModItems.CRYSTAL_LEGGINGS);
+                entries.add(FabricModItems.CRYSTAL_BOOTS);
             })
             .build()
     );

@@ -6,6 +6,10 @@
   "item.worldgentest.crystal_axe": "Crystal Axe",
   "item.worldgentest.crystal_shovel": "Crystal Shovel",
   "item.worldgentest.crystal_hoe": "Crystal Hoe",
+  "item.worldgentest.crystal_helmet": "Crystal Helmet",
+  "item.worldgentest.crystal_chestplate": "Crystal Chestplate",
+  "item.worldgentest.crystal_leggings": "Crystal Leggings",
+  "item.worldgentest.crystal_boots": "Crystal Boots",
   "itemGroup.worldgentest.worldgentest": "WorldGenTest",
   "biome.worldgentest.crystalline_caves": "Crystalline Caves"
 }

@@ -24,6 +24,14 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.type.AttributeModifierSlot;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.ArmorMaterial;
+import com.example.worldgentest.ModArmorMaterials;
+import net.minecraft.sound.SoundEvent;
+import net.minecraft.sound.SoundEvents;
+import net.minecraft.registry.entry.RegistryEntry;
+import java.util.List;
+import java.util.Map;
 
 public class FabricModItems {
     public static final String MOD_ID = "worldgentest";
@@ -83,6 +91,52 @@ public class FabricModItems {
             return BlockTags.INCORRECT_FOR_DIAMOND_TOOL;
         }
     };
+
+    // クリスタル防具材料（Fabric用）
+    public static final RegistryEntry<ArmorMaterial> CRYSTAL_ARMOR_MATERIAL = RegistryEntry.of(new ArmorMaterial(
+        Map.of(
+            ArmorItem.Type.BOOTS, 4,        // 防御力（ダイヤ+0.5）
+            ArmorItem.Type.LEGGINGS, 6,     // 防御力（ダイヤ+0.5）
+            ArmorItem.Type.CHESTPLATE, 8,   // 防御力（ダイヤ+0.5）
+            ArmorItem.Type.HELMET, 4        // 防御力（ダイヤ+0.5）
+        ),
+        10, // エンチャント適性
+        SoundEvents.ITEM_ARMOR_EQUIP_DIAMOND, // 装備音
+        () -> Ingredient.ofItems(CRYSTAL_SHARD), // 修理成分
+        List.of(
+            new ArmorMaterial.Layer(
+                Identifier.of(MOD_ID, "crystal")
+            )
+        ),
+        2.0F, // タフネス
+        0.0F  // ノックバック耐性
+    ));
+
+    // クリスタル防具
+    public static final Item CRYSTAL_HELMET = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "crystal_helmet"),
+        new ArmorItem(CRYSTAL_ARMOR_MATERIAL, ArmorItem.Type.HELMET, new Item.Settings())
+    );
+
+    public static final Item CRYSTAL_CHESTPLATE = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "crystal_chestplate"),
+        new ArmorItem(CRYSTAL_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE, new Item.Settings())
+    );
+
+    public static final Item CRYSTAL_LEGGINGS = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "crystal_leggings"),
+        new ArmorItem(CRYSTAL_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS, new Item.Settings())
+    );
+
+    public static final Item CRYSTAL_BOOTS = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "crystal_boots"),
+        new ArmorItem(CRYSTAL_ARMOR_MATERIAL, ArmorItem.Type.BOOTS, new Item.Settings())
+    );
+
 
     // クリスタルツール（ダイヤモンドレベルの攻撃力を実現）
     public static final Item CRYSTAL_SWORD = Registry.register(
