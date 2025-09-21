@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:ore",
+  "config": {
+    "size": 5,
+    "discard_chance_on_air_exposure": 0.5,
+    "targets": [
+      {
+        "target": {
+          "predicate_type": "minecraft:tag_match",
+          "tag": "minecraft:dirt"
+        },
+        "state": {
+          "Name": "worldgentest:crystal_block"
+        }
+      },
+      {
+        "target": {
+          "predicate_type": "minecraft:always_true"
+        },
+        "state": {
+          "Name": "worldgentest:crystal_block"
+        }
+      }
+    ]
+  }
+}

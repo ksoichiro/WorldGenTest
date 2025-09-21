@@ -70,9 +70,20 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 #### レシピシステム
 - クリスタルブロック crafting recipe（Minecraft 1.21.1対応）
 - クリスタルツール5種類のcrafting recipe（Minecraft 1.21.1対応）
+- [x] **精錬レシピ**（2025年9月実装完了）
+  - クリスタルの欠片の精錬レシピ（furnace & blast_furnace）
+  - 将来の鉱石対応レシピ（crystal_ore → crystal_shard）
+  - 対応するアドバンスメントファイル
 - アドバンスメントシステム統合
 - レシピブック対応
-- カテゴリ別アドバンスメント（decorations、equipment）
+- カテゴリ別アドバンスメント（decorations、equipment、misc）
+
+#### カスタム構造物
+- [⚠️] **地表装飾**（2025年9月実装・要改善）
+  - クリスタル神殿（地表配置）- 現在限定的に動作
+  - 古代クリスタル遺跡（地下配置）- 正常動作
+  - featureベースの装飾システム（structure systemではない）
+  - **改善が必要**: 地表配置の信頼性とサイズ
 
 ## 今後の機能拡張計画
 
@@ -80,7 +91,7 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 
 #### レシピシステム
 - [x] クリスタルブロックのクラフトレシピ（Minecraft 1.21.1対応完了）
-- [ ] 精錬レシピ
+- [x] **精錬レシピ**（2025年9月完了）
 - [ ] カスタムレシピタイプ
 
 #### アイテム追加
@@ -91,25 +102,47 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 #### ワールド生成強化
 - [ ] クリスタル鉱石
 - [ ] 洞窟装飾（鍾乳石など）
-- [ ] カスタム構造物
+- [⚠️] **カスタム構造物**（2025年9月部分実装・要改善）
+  - 地表のクリスタル神殿の配置改善が必要
+  - より確実で視覚的に魅力的な構造物実装
+
+## 🎯 次回優先タスク（パターンBフェーズ1完了後）
+
+### 1. 地表構造物の改善（優先度: 高）
+- **問題**: 現在の地表配置が限定的で見つけにくい
+- **解決策候補**:
+  1. `.nbt`テンプレートを使った真の構造物システム
+  2. より効果的なfeature配置設定
+  3. 目立つ装飾ブロック（柱、台座など）の追加
+- **推定工数**: 4-6時間
+
+### 2. 次フェーズ（パターンB）への移行
+- **フェーズ2**: クリスタル鉱石実装 → 洞窟装飾
+- **フェーズ3**: クリスタル防具 + 特殊効果アイテム
+- **フェーズ4**: カスタムレシピタイプ
 
 ## 📋 短期開発計画詳細（並行開発用）
 
 ### 1. レシピシステム強化 🍳
 
-#### 1.1 精錬レシピ（優先度: 高、競合リスク: 低）
-- **推定工数**: 2-3時間
+#### 1.1 精錬レシピ（優先度: 高、競合リスク: 低）✅**完了**
+- **実装工数**: 2時間（2025年9月完了）
 - **技術要件**: Minecraft 1.21.1対応の精錬レシピフォーマット
-- **実装内容**:
-  - クリスタルの欠片 → 精錬クリスタルの欠片（高品質版）
-  - クリスタル鉱石 → クリスタルの欠片（将来実装予定の鉱石用）
-- **ファイル構成**:
+- **実装済み内容**:
+  - クリスタルの欠片精錬レシピ（furnace & blast_furnace）
+  - 将来のクリスタル鉱石対応レシピ
+  - 対応するアドバンスメントファイル（misc カテゴリ）
+- **実装ファイル**:
   ```
   common/src/main/resources/data/worldgentest/recipe/
   ├── smelting_crystal_shard.json
-  └── smelting_crystal_ore.json
+  ├── blasting_crystal_shard.json
+  ├── smelting_crystal_ore.json
+  └── blasting_crystal_ore.json
+  common/src/main/resources/data/worldgentest/advancement/recipe/misc/
+  ├── smelting_crystal_shard.json
+  └── blasting_crystal_shard.json
   ```
-- **並行開発**: 2.1 クリスタル防具と並行可能
 
 #### 1.2 カスタムレシピタイプ（優先度: 中、競合リスク: 中）
 - **推定工数**: 8-12時間
@@ -166,6 +199,28 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 - **並行開発**: 他の全項目と並行可能
 
 ### 3. ワールド生成強化 🌍
+
+#### 3.0 カスタム構造物（優先度: 高、競合リスク: 中）⚠️**部分完了・要改善**
+- **実装工数**: 6時間（2025年9月部分完了）
+- **技術要件**: Feature-based装飾システム
+- **実装済み内容**:
+  - 地表クリスタル神殿（limited functionality）
+  - 地下古代クリスタル遺跡（正常動作）
+  - 既存バイオーム（Crystalline Caves）への統合
+- **実装ファイル**:
+  ```
+  common/src/main/resources/data/worldgentest/worldgen/
+  ├── configured_feature/
+  │   ├── crystal_shrine_feature.json
+  │   └── ancient_ruins_feature.json
+  └── placed_feature/
+      ├── crystal_shrine_placed.json
+      └── ancient_ruins_placed.json
+  ```
+- **要改善点**:
+  - 地表配置の信頼性向上
+  - より視覚的に魅力的な構造
+  - 真の構造物システム(.nbt)への移行検討
 
 #### 3.1 クリスタル鉱石（優先度: 高、競合リスク: 高）
 - **推定工数**: 8-10時間
