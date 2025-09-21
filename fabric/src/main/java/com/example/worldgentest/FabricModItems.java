@@ -55,7 +55,8 @@ public class FabricModItems {
         Identifier.of(MOD_ID, "crystal_ore"),
         new Block(AbstractBlock.Settings.create()
             .strength(3.0F, 3.0F)
-            .sounds(BlockSoundGroup.STONE))
+            .sounds(BlockSoundGroup.STONE)
+            .requiresTool())
     );
 
     public static final Item CRYSTAL_ORE_ITEM = Registry.register(
@@ -69,7 +70,8 @@ public class FabricModItems {
         Identifier.of(MOD_ID, "deepslate_crystal_ore"),
         new Block(AbstractBlock.Settings.create()
             .strength(4.5F, 3.0F)
-            .sounds(BlockSoundGroup.DEEPSLATE))
+            .sounds(BlockSoundGroup.DEEPSLATE)
+            .requiresTool())
     );
 
     public static final Item DEEPSLATE_CRYSTAL_ORE_ITEM = Registry.register(
@@ -143,8 +145,8 @@ public class FabricModItems {
 
         @Override
         public TagKey<Block> getInverseTag() {
-            // ダイヤモンドレベルのツールなので、鉄ツールで採掘できないブロックを指定
-            return BlockTags.INCORRECT_FOR_IRON_TOOL;
+            // ダイヤモンドレベルのツールと同等として扱う
+            return BlockTags.INCORRECT_FOR_DIAMOND_TOOL;
         }
     };
 

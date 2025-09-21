@@ -46,7 +46,8 @@ public class ModBlocks {
     public static final Supplier<Block> CRYSTAL_ORE = BLOCKS.register("crystal_ore", () ->
         new Block(BlockBehaviour.Properties.of()
             .strength(3.0F, 3.0F)
-            .sound(SoundType.STONE))
+            .sound(SoundType.STONE)
+            .requiresCorrectToolForDrops())
     );
 
     public static final Supplier<Item> CRYSTAL_ORE_ITEM = ITEMS.register("crystal_ore", () ->
@@ -56,7 +57,8 @@ public class ModBlocks {
     public static final Supplier<Block> DEEPSLATE_CRYSTAL_ORE = BLOCKS.register("deepslate_crystal_ore", () ->
         new Block(BlockBehaviour.Properties.of()
             .strength(4.5F, 3.0F)
-            .sound(SoundType.DEEPSLATE))
+            .sound(SoundType.DEEPSLATE)
+            .requiresCorrectToolForDrops())
     );
 
     public static final Supplier<Item> DEEPSLATE_CRYSTAL_ORE_ITEM = ITEMS.register("deepslate_crystal_ore", () ->
