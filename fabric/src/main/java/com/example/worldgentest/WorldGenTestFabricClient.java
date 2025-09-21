@@ -9,10 +9,8 @@ import com.example.worldgentest.client.model.CrystalGolemModel;
 public class WorldGenTestFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
-        // エンティティレンダラー登録（yarn mapping版）
+        // エンティティレンダラー登録
         EntityModelLayerRegistry.registerModelLayer(CrystalGolemModel.LAYER_LOCATION, CrystalGolemModel::createBodyLayer);
         EntityRendererRegistry.register(FabricModEntities.CRYSTAL_GOLEM, CrystalGolemRenderer::new);
-
-        System.out.println("[WorldGenTest] FabricClient initialization - entity rendering enabled with yarn mappings");
     }
 }

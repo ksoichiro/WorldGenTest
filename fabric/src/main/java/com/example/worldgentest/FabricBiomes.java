@@ -14,16 +14,10 @@ public class FabricBiomes {
     );
 
     public static void register() {
-        System.out.println("Fabric biomes initialized - using datapack registration");
-        System.out.println("Biome registration will be handled by datapack");
+        // Biome registration will be handled by datapack
     }
 
     public static void modifyBiomes() {
-        System.out.println("Fabric biome modifications initialized");
-
-        // バイオーム生成はデータパックで処理されるため、ここでは登録確認のみ
-        System.out.println("crystalline_caves biome is registered and ready!");
-        System.out.println("Use '/locate biome worldgentest:crystalline_caves' to find it.");
-        System.out.println("Note: Custom biome spawning requires dimension modifications or custom world type");
+        // バイオーム生成はデータパックで処理される
     }
 }

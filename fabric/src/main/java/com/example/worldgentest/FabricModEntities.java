@@ -26,7 +26,5 @@ public class FabricModEntities {
 
         // エンティティ属性を登録
         FabricDefaultAttributeRegistry.register(CRYSTAL_GOLEM, FabricCrystalGolemEntity.createGolemAttributes());
-
-        System.out.println("[WorldGenTest] Crystal Golem entity registered successfully!");
     }
 }

@@ -16,8 +16,5 @@ public class NeoForgeBiomes {
 
     public static void register(IEventBus modEventBus) {
         BIOMES.register(modEventBus);
-        System.out.println("NeoForge biomes initialized - using programmatic + datapack registration");
-        System.out.println("crystalline_caves biome is registered and ready!");
-        System.out.println("Use '/locate biome worldgentest:crystalline_caves' to find it.");
     }
 }
