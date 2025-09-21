@@ -20,6 +20,11 @@ public class ModCreativeTabs {
             .displayItems((parameters, output) -> {
                 output.accept(ModBlocks.CRYSTAL_BLOCK_ITEM.get());
                 output.accept(ModBlocks.CRYSTAL_SHARD.get());
+                output.accept(ModBlocks.CRYSTAL_SWORD.get());
+                output.accept(ModBlocks.CRYSTAL_PICKAXE.get());
+                output.accept(ModBlocks.CRYSTAL_AXE.get());
+                output.accept(ModBlocks.CRYSTAL_SHOVEL.get());
+                output.accept(ModBlocks.CRYSTAL_HOE.get());
             })
             .build()
     );

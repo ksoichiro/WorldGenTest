@@ -11,13 +11,18 @@ import net.minecraft.item.ItemStack;
 public class FabricModCreativeTabs {
     public static final ItemGroup WORLDGEN_TEST_TAB = Registry.register(
         Registries.ITEM_GROUP,
-        Identifier.of(FabricModBlocks.MOD_ID, "worldgentest"),
+        Identifier.of(FabricModItems.MOD_ID, "worldgentest"),
         FabricItemGroup.builder()
-            .displayName(Text.translatable("itemGroup." + FabricModBlocks.MOD_ID + ".worldgentest"))
-            .icon(() -> new ItemStack(FabricModBlocks.CRYSTAL_BLOCK_ITEM))
+            .displayName(Text.translatable("itemGroup." + FabricModItems.MOD_ID + ".worldgentest"))
+            .icon(() -> new ItemStack(FabricModItems.CRYSTAL_BLOCK_ITEM))
             .entries((context, entries) -> {
-                entries.add(FabricModBlocks.CRYSTAL_BLOCK_ITEM);
-                entries.add(FabricModBlocks.CRYSTAL_SHARD);
+                entries.add(FabricModItems.CRYSTAL_BLOCK_ITEM);
+                entries.add(FabricModItems.CRYSTAL_SHARD);
+                entries.add(FabricModItems.CRYSTAL_SWORD);
+                entries.add(FabricModItems.CRYSTAL_PICKAXE);
+                entries.add(FabricModItems.CRYSTAL_AXE);
+                entries.add(FabricModItems.CRYSTAL_SHOVEL);
+                entries.add(FabricModItems.CRYSTAL_HOE);
             })
             .build()
     );

@@ -9,7 +9,7 @@ public class WorldGenTestFabric implements ModInitializer {
         FabricModEntities.register(); // yarn mappingで復活
 
         // Fabric固有の登録処理
-        FabricModBlocks.register();
+        FabricModItems.register();
         FabricModCreativeTabs.register();
 
         // バイオーム関連の登録

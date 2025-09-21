@@ -1,6 +1,11 @@
 {
   "block.worldgentest.crystal_block": "Crystal Block",
   "item.worldgentest.crystal_shard": "Crystal Shard",
+  "item.worldgentest.crystal_sword": "Crystal Sword",
+  "item.worldgentest.crystal_pickaxe": "Crystal Pickaxe",
+  "item.worldgentest.crystal_axe": "Crystal Axe",
+  "item.worldgentest.crystal_shovel": "Crystal Shovel",
+  "item.worldgentest.crystal_hoe": "Crystal Hoe",
   "itemGroup.worldgentest.worldgentest": "WorldGenTest",
   "biome.worldgentest.crystalline_caves": "Crystalline Caves"
 }

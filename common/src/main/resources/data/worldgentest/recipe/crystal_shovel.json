@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "C": "worldgentest:crystal_shard",
+    "S": "minecraft:stick"
+  },
+  "pattern": [
+    " C ",
+    " S ",
+    " S "
+  ],
+  "result": {
+    "count": 1,
+    "id": "worldgentest:crystal_shovel"
+  }
+}
