@@ -18,8 +18,17 @@ public class ModCreativeTabs {
             .title(Component.translatable("itemGroup." + WorldGenTestNeoForge.MOD_ID + ".worldgentest"))
             .icon(() -> new ItemStack(ModBlocks.CRYSTAL_BLOCK.get()))
             .displayItems((parameters, output) -> {
+                // ブロック類
                 output.accept(ModBlocks.CRYSTAL_BLOCK_ITEM.get());
+                output.accept(ModBlocks.CRYSTAL_ORE_ITEM.get());
+                output.accept(ModBlocks.DEEPSLATE_CRYSTAL_ORE_ITEM.get());
+                output.accept(ModBlocks.CRYSTAL_STALACTITE_ITEM.get());
+                output.accept(ModBlocks.GLOWING_MOSS_ITEM.get());
+
+                // アイテム類
                 output.accept(ModBlocks.CRYSTAL_SHARD.get());
+
+                // ツール類
                 output.accept(ModBlocks.CRYSTAL_SWORD.get());
                 output.accept(ModBlocks.CRYSTAL_PICKAXE.get());
                 output.accept(ModBlocks.CRYSTAL_AXE.get());

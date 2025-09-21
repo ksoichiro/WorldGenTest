@@ -40,8 +40,7 @@ public class ModBlocks {
         new Block(BlockBehaviour.Properties.of()
             .strength(3.0F, 6.0F)
             .sound(SoundType.GLASS)
-            .lightLevel(state -> 10)
-            .requiresCorrectToolForDrops())
+            .lightLevel(state -> 10))
     );
 
     public static final Supplier<Item> CRYSTAL_BLOCK_ITEM = ITEMS.register("crystal_block", () ->
@@ -89,6 +88,55 @@ SoundEvents.ARMOR_EQUIP_DIAMOND, // 装備音
         new ArmorItem(CRYSTAL_ARMOR_MATERIAL, ArmorItem.Type.BOOTS, new Item.Properties())
     );
 
+    // クリスタル鉱石（通常・深層岩）
+    public static final Supplier<Block> CRYSTAL_ORE = BLOCKS.register("crystal_ore", () ->
+        new Block(BlockBehaviour.Properties.of()
+            .strength(3.0F, 3.0F)
+            .sound(SoundType.STONE)
+            .requiresCorrectToolForDrops())
+    );
+
+    public static final Supplier<Item> CRYSTAL_ORE_ITEM = ITEMS.register("crystal_ore", () ->
+        new BlockItem(CRYSTAL_ORE.get(), new Item.Properties())
+    );
+
+    public static final Supplier<Block> DEEPSLATE_CRYSTAL_ORE = BLOCKS.register("deepslate_crystal_ore", () ->
+        new Block(BlockBehaviour.Properties.of()
+            .strength(4.5F, 3.0F)
+            .sound(SoundType.DEEPSLATE)
+            .requiresCorrectToolForDrops())
+    );
+
+    public static final Supplier<Item> DEEPSLATE_CRYSTAL_ORE_ITEM = ITEMS.register("deepslate_crystal_ore", () ->
+        new BlockItem(DEEPSLATE_CRYSTAL_ORE.get(), new Item.Properties())
+    );
+
+    // 洞窟装飾ブロック
+    public static final Supplier<Block> CRYSTAL_STALACTITE = BLOCKS.register("crystal_stalactite", () ->
+        new Block(BlockBehaviour.Properties.of()
+            .strength(0.5F, 1.0F)
+            .sound(SoundType.GLASS)
+            .lightLevel(state -> 5)
+            .noOcclusion()
+            .noCollission())
+    );
+
+    public static final Supplier<Item> CRYSTAL_STALACTITE_ITEM = ITEMS.register("crystal_stalactite", () ->
+        new BlockItem(CRYSTAL_STALACTITE.get(), new Item.Properties())
+    );
+
+    public static final Supplier<Block> GLOWING_MOSS = BLOCKS.register("glowing_moss", () ->
+        new Block(BlockBehaviour.Properties.of()
+            .strength(0.2F, 0.2F)
+            .sound(SoundType.MOSS)
+            .lightLevel(state -> 3)
+            .noOcclusion()
+            .noCollission())
+    );
+
+    public static final Supplier<Item> GLOWING_MOSS_ITEM = ITEMS.register("glowing_moss", () ->
+        new BlockItem(GLOWING_MOSS.get(), new Item.Properties())
+    );
 
     // クリスタルツール（NeoForgeのコンストラクタ仕様に合わせる）
     public static final Supplier<Item> CRYSTAL_SWORD = ITEMS.register("crystal_sword", () ->

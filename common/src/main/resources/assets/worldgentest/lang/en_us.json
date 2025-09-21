@@ -1,5 +1,9 @@
 {
   "block.worldgentest.crystal_block": "Crystal Block",
+  "block.worldgentest.crystal_ore": "Crystal Ore",
+  "block.worldgentest.deepslate_crystal_ore": "Deepslate Crystal Ore",
+  "block.worldgentest.crystal_stalactite": "Crystal Stalactite",
+  "block.worldgentest.glowing_moss": "Glowing Moss",
   "item.worldgentest.crystal_shard": "Crystal Shard",
   "item.worldgentest.crystal_sword": "Crystal Sword",
   "item.worldgentest.crystal_pickaxe": "Crystal Pickaxe",
