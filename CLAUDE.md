@@ -93,6 +93,160 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 - [ ] 洞窟装飾（鍾乳石など）
 - [ ] カスタム構造物
 
+## 📋 短期開発計画詳細（並行開発用）
+
+### 1. レシピシステム強化 🍳
+
+#### 1.1 精錬レシピ（優先度: 高、競合リスク: 低）
+- **推定工数**: 2-3時間
+- **技術要件**: Minecraft 1.21.1対応の精錬レシピフォーマット
+- **実装内容**:
+  - クリスタルの欠片 → 精錬クリスタルの欠片（高品質版）
+  - クリスタル鉱石 → クリスタルの欠片（将来実装予定の鉱石用）
+- **ファイル構成**:
+  ```
+  common/src/main/resources/data/worldgentest/recipe/
+  ├── smelting_crystal_shard.json
+  └── smelting_crystal_ore.json
+  ```
+- **並行開発**: 2.1 クリスタル防具と並行可能
+
+#### 1.2 カスタムレシピタイプ（優先度: 中、競合リスク: 中）
+- **推定工数**: 8-12時間
+- **技術要件**: カスタムRecipeTypeとRecipeSerializerの実装
+- **実装内容**:
+  - クリスタル加工台用のレシピタイプ
+  - プラットフォーム固有の登録システム
+- **ファイル構成**:
+  ```
+  common/src/main/java/com/example/worldgentest/recipe/
+  ├── CrystalProcessingRecipe.java
+  ├── CrystalProcessingRecipeType.java
+  └── CrystalProcessingRecipeSerializer.java
+  fabric/src/main/java/com/example/worldgentest/FabricModRecipes.java
+  neoforge/src/main/java/com/example/worldgentest/ModRecipes.java
+  ```
+- **注意**: 他のレシピシステムとの競合可能性があるため、基本実装完了後に実行推奨
+
+### 2. アイテム追加機能 ⚔️
+
+#### 2.1 クリスタル防具（優先度: 高、競合リスク: 低）
+- **推定工数**: 6-8時間
+- **技術要件**: カスタム防具材料とプラットフォーム固有実装
+- **実装内容**:
+  - 4種類の防具（ヘルメット、チェストプレート、レギンス、ブーツ）
+  - カスタム防具材料（ModArmorMaterials）
+  - プラットフォーム固有の材料実装
+- **ファイル構成**:
+  ```
+  common/src/main/java/com/example/worldgentest/
+  ├── ModArmorMaterials.java
+  └── ModItems.java（防具追加）
+  fabric/src/main/java/com/example/worldgentest/FabricModArmor.java
+  neoforge/src/main/java/com/example/worldgentest/ModArmor.java
+  common/src/main/resources/assets/worldgentest/textures/item/
+  ├── crystal_helmet.png
+  ├── crystal_chestplate.png
+  ├── crystal_leggings.png
+  └── crystal_boots.png
+  common/src/main/resources/data/worldgentest/recipe/
+  ├── crystal_helmet.json
+  ├── crystal_chestplate.json
+  ├── crystal_leggings.json
+  └── crystal_boots.json
+  ```
+- **並行開発**: 1.1 精錬レシピ、2.2 特殊効果アイテム、3.3 カスタム構造物と並行可能
+
+#### 2.2 特殊効果アイテム（優先度: 中、競合リスク: 低）
+- **推定工数**: 4-6時間
+- **技術要件**: カスタムアイテム効果とエンチャント
+- **実装内容**:
+  - クリスタルポーション（一時的効果）
+  - クリスタルアミュレット（常時効果）
+- **並行開発**: 他の全項目と並行可能
+
+### 3. ワールド生成強化 🌍
+
+#### 3.1 クリスタル鉱石（優先度: 高、競合リスク: 高）
+- **推定工数**: 8-10時間
+- **技術要件**: カスタムブロックとワールド生成統合
+- **実装内容**:
+  - 通常クリスタル鉱石（石の中）
+  - 深層クリスタル鉱石（深層岩の中）
+  - ワールド生成での配置ルール
+- **ファイル構成**:
+  ```
+  common/src/main/java/com/example/worldgentest/
+  ├── ModBlocks.java（鉱石ブロック追加）
+  └── ModItems.java（鉱石アイテム追加）
+  common/src/main/resources/assets/worldgentest/textures/block/
+  ├── crystal_ore.png
+  └── deepslate_crystal_ore.png
+  common/src/main/resources/data/worldgentest/worldgen/
+  └── placed_feature/crystal_ore_placed.json
+  ```
+- **注意**: 3.2と同時実行不可（ワールド生成システムの競合）
+
+#### 3.2 洞窟装飾（優先度: 中、競合リスク: 高）
+- **推定工数**: 6-8時間
+- **実装内容**:
+  - クリスタルの鍾乳石
+  - 光る苔
+  - 小さなクリスタル結晶
+- **注意**: 3.1完了後に実行（ワールド生成システムの競合）
+
+#### 3.3 カスタム構造物（優先度: 低、競合リスク: 中）
+- **推定工数**: 12-16時間
+- **技術要件**: Structure generation system
+- **実装内容**:
+  - 小さなクリスタル神殿
+  - 古代クリスタル遺跡
+- **並行開発**: 1.1、2.1、2.2と並行可能
+
+### 🎯 推奨並行開発パターン
+
+#### パターンA: アイテム重視（推奨）
+```
+フェーズ1（並行）: 1.1 精錬レシピ + 2.1 クリスタル防具 [8-11時間]
+フェーズ2（並行）: 2.2 特殊効果アイテム + 3.3 カスタム構造物 [16-22時間]
+フェーズ3（順次）: 1.2 カスタムレシピタイプ [8-12時間]
+フェーズ4（順次）: 3.1 クリスタル鉱石 → 3.2 洞窟装飾 [14-18時間]
+```
+
+#### パターンB: ワールド生成重視
+```
+フェーズ1（並行）: 1.1 精錬レシピ + 3.3 カスタム構造物 [14-19時間]
+フェーズ2（順次）: 3.1 クリスタル鉱石 → 3.2 洞窟装飾 [14-18時間]
+フェーズ3（並行）: 2.1 クリスタル防具 + 2.2 特殊効果アイテム [10-14時間]
+フェーズ4（順次）: 1.2 カスタムレシピタイプ [8-12時間]
+```
+
+### ⚠️ 競合回避ルール
+
+1. **同一システム変更の回避**
+   - ワールド生成関連（3.1 ↔ 3.2）は順次実行
+   - レシピシステム拡張（1.2）は他のレシピ作業完了後
+
+2. **プラットフォーム固有ファイルの調整**
+   - 同じプラットフォーム固有ファイルを変更する場合は事前調整
+   - 例: FabricModItems.java を複数機能で同時変更する場合
+
+3. **テスト段階での統合**
+   - 各機能完了後は必ず個別テスト
+   - 複数機能完了後は統合テスト実施
+
+4. **並行開発時のビルド方針**
+   - **重要**: 並行開発中は `runClient` を実行せず、`build` のみで動作確認
+   - 理由: 複数のクライアント同時起動によるマシン負荷を回避
+   - コマンド例:
+     ```bash
+     ./gradlew build                    # 全体ビルド確認
+     ./gradlew fabric:build            # Fabricプラットフォームのみ
+     ./gradlew neoforge:build          # NeoForgeプラットフォームのみ
+     ```
+   - クライアントでの動作確認は各機能完了後にユーザーが手動で実行
+   - 並行開発完了後の統合テスト時に初めて `runClient` を使用
+
 ### 🎯 中期計画（1-2ヶ月）
 
 #### エンティティ
