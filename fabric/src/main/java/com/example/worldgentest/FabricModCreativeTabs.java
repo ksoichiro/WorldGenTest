@@ -16,8 +16,17 @@ public class FabricModCreativeTabs {
             .displayName(Text.translatable("itemGroup." + FabricModItems.MOD_ID + ".worldgentest"))
             .icon(() -> new ItemStack(FabricModItems.CRYSTAL_BLOCK_ITEM))
             .entries((context, entries) -> {
+                // ブロック類
                 entries.add(FabricModItems.CRYSTAL_BLOCK_ITEM);
+                entries.add(FabricModItems.CRYSTAL_ORE_ITEM);
+                entries.add(FabricModItems.DEEPSLATE_CRYSTAL_ORE_ITEM);
+                entries.add(FabricModItems.CRYSTAL_STALACTITE_ITEM);
+                entries.add(FabricModItems.GLOWING_MOSS_ITEM);
+
+                // アイテム類
                 entries.add(FabricModItems.CRYSTAL_SHARD);
+
+                // ツール類
                 entries.add(FabricModItems.CRYSTAL_SWORD);
                 entries.add(FabricModItems.CRYSTAL_PICKAXE);
                 entries.add(FabricModItems.CRYSTAL_AXE);

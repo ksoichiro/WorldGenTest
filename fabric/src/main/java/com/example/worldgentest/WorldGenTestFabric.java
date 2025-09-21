@@ -17,6 +17,9 @@ public class WorldGenTestFabric implements ModInitializer {
         FabricBiomes.register();
         FabricBiomes.modifyBiomes();
 
+        // 既存バイオームへのクリスタル機能追加
+        FabricBiomeModifications.register();
+
         // カスタムコマンドの登録
         // FabricCommands.register(); // yarn mapping移行中のため一時的に無効化
     }

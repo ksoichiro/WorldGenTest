@@ -101,6 +101,8 @@
     [],
     [
       "worldgentest:crystal_block_placed",
+      "worldgentest:crystal_ore_placed",
+      "worldgentest:deepslate_crystal_ore_placed",
       "minecraft:ore_dirt",
       "minecraft:ore_gravel",
       "minecraft:ore_granite_upper",
@@ -132,7 +134,8 @@
     ],
     [],
     [
-      "minecraft:glow_lichen"
+      "minecraft:glow_lichen",
+      "worldgentest:crystal_decorations_placed"
     ],
     []
   ]

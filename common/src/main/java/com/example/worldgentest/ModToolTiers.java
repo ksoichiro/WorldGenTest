@@ -59,7 +59,7 @@ public enum ModToolTiers implements Tier {
 
     @Override
     public TagKey<Block> getIncorrectBlocksForDrops() {
-        // ダイヤモンドレベルのツールと同じタグを使用
-        return BlockTags.INCORRECT_FOR_DIAMOND_TOOL;
+        // ダイヤモンドレベルのツールなので、鉄ツールで採掘できないブロックを指定
+        return BlockTags.INCORRECT_FOR_IRON_TOOL;
     }
 }

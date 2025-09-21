@@ -34,8 +34,7 @@ public class FabricModItems {
         new Block(AbstractBlock.Settings.create()
             .strength(3.0F, 6.0F)
             .sounds(BlockSoundGroup.GLASS)
-            .luminance(state -> 10)
-            .requiresTool())
+            .luminance(state -> 10))
     );
 
     public static final Item CRYSTAL_BLOCK_ITEM = Registry.register(
@@ -49,6 +48,71 @@ public class FabricModItems {
         Identifier.of(MOD_ID, "crystal_shard"),
         new Item(new Item.Settings())
     );
+
+    // クリスタル鉱石（通常・深層岩）
+    public static final Block CRYSTAL_ORE = Registry.register(
+        Registries.BLOCK,
+        Identifier.of(MOD_ID, "crystal_ore"),
+        new Block(AbstractBlock.Settings.create()
+            .strength(3.0F, 3.0F)
+            .sounds(BlockSoundGroup.STONE))
+    );
+
+    public static final Item CRYSTAL_ORE_ITEM = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "crystal_ore"),
+        new BlockItem(CRYSTAL_ORE, new Item.Settings())
+    );
+
+    public static final Block DEEPSLATE_CRYSTAL_ORE = Registry.register(
+        Registries.BLOCK,
+        Identifier.of(MOD_ID, "deepslate_crystal_ore"),
+        new Block(AbstractBlock.Settings.create()
+            .strength(4.5F, 3.0F)
+            .sounds(BlockSoundGroup.DEEPSLATE))
+    );
+
+    public static final Item DEEPSLATE_CRYSTAL_ORE_ITEM = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "deepslate_crystal_ore"),
+        new BlockItem(DEEPSLATE_CRYSTAL_ORE, new Item.Settings())
+    );
+
+    // 洞窟装飾ブロック
+    public static final Block CRYSTAL_STALACTITE = Registry.register(
+        Registries.BLOCK,
+        Identifier.of(MOD_ID, "crystal_stalactite"),
+        new Block(AbstractBlock.Settings.create()
+            .strength(0.5F, 1.0F)
+            .sounds(BlockSoundGroup.GLASS)
+            .luminance(state -> 5)
+            .nonOpaque()
+            .noCollision())
+    );
+
+    public static final Item CRYSTAL_STALACTITE_ITEM = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "crystal_stalactite"),
+        new BlockItem(CRYSTAL_STALACTITE, new Item.Settings())
+    );
+
+    public static final Block GLOWING_MOSS = Registry.register(
+        Registries.BLOCK,
+        Identifier.of(MOD_ID, "glowing_moss"),
+        new Block(AbstractBlock.Settings.create()
+            .strength(0.2F, 0.2F)
+            .sounds(BlockSoundGroup.MOSS_BLOCK)
+            .luminance(state -> 3)
+            .nonOpaque()
+            .noCollision())
+    );
+
+    public static final Item GLOWING_MOSS_ITEM = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "glowing_moss"),
+        new BlockItem(GLOWING_MOSS, new Item.Settings())
+    );
+
 
     // クリスタルツール材料のToolMaterial実装（ダイヤモンドレベル）
     public static final ToolMaterial CRYSTAL_TOOL_MATERIAL = new ToolMaterial() {
@@ -79,8 +143,8 @@ public class FabricModItems {
 
         @Override
         public TagKey<Block> getInverseTag() {
-            // ダイヤモンドレベルのツールと同じタグを使用
-            return BlockTags.INCORRECT_FOR_DIAMOND_TOOL;
+            // ダイヤモンドレベルのツールなので、鉄ツールで採掘できないブロックを指定
+            return BlockTags.INCORRECT_FOR_IRON_TOOL;
         }
     };
 

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:simple_block",
+  "config": {
+    "to_place": {
+      "type": "minecraft:weighted_state_provider",
+      "entries": [
+        {
+          "weight": 3,
+          "data": {
+            "Name": "worldgentest:crystal_stalactite"
+          }
+        },
+        {
+          "weight": 4,
+          "data": {
+            "Name": "worldgentest:glowing_moss"
+          }
+}
+      ]
+    }
+  }
+}

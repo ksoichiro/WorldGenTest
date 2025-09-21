@@ -1,5 +1,9 @@
 {
   "block.worldgentest.crystal_block": "クリスタルブロック",
+  "block.worldgentest.crystal_ore": "クリスタル鉱石",
+  "block.worldgentest.deepslate_crystal_ore": "深層クリスタル鉱石",
+  "block.worldgentest.crystal_stalactite": "クリスタル鍾乳石",
+  "block.worldgentest.glowing_moss": "光る苔",
   "item.worldgentest.crystal_shard": "クリスタルの欠片",
   "item.worldgentest.crystal_sword": "クリスタルソード",
   "item.worldgentest.crystal_pickaxe": "クリスタルピッケル",

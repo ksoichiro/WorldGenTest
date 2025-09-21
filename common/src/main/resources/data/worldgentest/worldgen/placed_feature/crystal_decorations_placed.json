@@ -1,0 +1,47 @@
+{
+  "feature": "worldgentest:crystal_decorations",
+  "placement": [
+    {
+      "type": "minecraft:count",
+      "count": 8
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 100
+        },
+        "min_inclusive": {
+          "absolute": -50
+        }
+      }
+    },
+    {
+      "type": "minecraft:environment_scan",
+      "direction_of_search": "down",
+      "max_steps": 20,
+      "target_condition": {
+        "type": "minecraft:matching_blocks",
+        "blocks": [
+          "minecraft:stone",
+          "minecraft:deepslate",
+          "minecraft:andesite",
+          "minecraft:granite",
+          "minecraft:diorite"
+        ]
+      }
+    },
+    {
+      "type": "minecraft:random_offset",
+      "xz_spread": 4,
+      "y_spread": 2
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

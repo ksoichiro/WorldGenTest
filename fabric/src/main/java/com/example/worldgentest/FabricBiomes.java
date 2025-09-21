@@ -20,7 +20,10 @@ public class FabricBiomes {
 
     public static void modifyBiomes() {
         System.out.println("Fabric biome modifications initialized");
+
+        // バイオーム生成はデータパックで処理されるため、ここでは登録確認のみ
         System.out.println("crystalline_caves biome is registered and ready!");
         System.out.println("Use '/locate biome worldgentest:crystalline_caves' to find it.");
+        System.out.println("Note: Custom biome spawning requires dimension modifications or custom world type");
     }
 }
