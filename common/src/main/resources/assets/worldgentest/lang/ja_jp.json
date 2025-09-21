@@ -6,6 +6,10 @@
   "item.worldgentest.crystal_axe": "クリスタル斧",
   "item.worldgentest.crystal_shovel": "クリスタルシャベル",
   "item.worldgentest.crystal_hoe": "クリスタルクワ",
+  "item.worldgentest.crystal_helmet": "クリスタルヘルメット",
+  "item.worldgentest.crystal_chestplate": "クリスタルチェストプレート",
+  "item.worldgentest.crystal_leggings": "クリスタルレギンス",
+  "item.worldgentest.crystal_boots": "クリスタルブーツ",
   "itemGroup.worldgentest.worldgentest": "WorldGenTest",
   "biome.worldgentest.crystalline_caves": "クリスタルの洞窟"
 }

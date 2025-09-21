@@ -86,7 +86,7 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 #### アイテム追加
 - [x] クリスタルの欠片（アイテム）- 2025年9月実装完了
 - [x] クリスタルツール（剣、ピッケル、斧、シャベル、クワ）- 2025年9月実装完了
-- [ ] クリスタル防具
+- [x] クリスタル防具（ヘルメット、チェストプレート、レギンス、ブーツ）- 2025年9月実装完了
 
 #### ワールド生成強化
 - [ ] クリスタル鉱石
@@ -130,40 +130,41 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 
 ### 2. アイテム追加機能 ⚔️
 
-#### 2.1 クリスタル防具（優先度: 高、競合リスク: 低）
-- **推定工数**: 6-8時間
+#### 2.1 クリスタル防具（✅ 2025年9月完了）
+- **実装工数**: 6-8時間（完了）
 - **技術要件**: カスタム防具材料とプラットフォーム固有実装
 - **実装内容**:
   - 4種類の防具（ヘルメット、チェストプレート、レギンス、ブーツ）
   - カスタム防具材料（ModArmorMaterials）
-  - プラットフォーム固有の材料実装
-- **ファイル構成**:
+  - プラットフォーム固有の材料実装（Fabric/NeoForge）
+  - ダイヤモンド+0.5の防御力設定
+  - 完全なレシピ・アドバンスメント統合
+- **実装ファイル**:
   ```
-  common/src/main/java/com/example/worldgentest/
-  ├── ModArmorMaterials.java
-  └── ModItems.java（防具追加）
-  fabric/src/main/java/com/example/worldgentest/FabricModArmor.java
-  neoforge/src/main/java/com/example/worldgentest/ModArmor.java
+  common/src/main/java/com/example/worldgentest/ModArmorMaterials.java
+  fabric/src/main/java/com/example/worldgentest/FabricModItems.java（防具追加）
+  neoforge/src/main/java/com/example/worldgentest/ModBlocks.java（防具追加）
   common/src/main/resources/assets/worldgentest/textures/item/
   ├── crystal_helmet.png
   ├── crystal_chestplate.png
   ├── crystal_leggings.png
   └── crystal_boots.png
+  common/src/main/resources/assets/worldgentest/textures/models/armor/
+  ├── crystal_layer_1.png
+  └── crystal_layer_2.png
   common/src/main/resources/data/worldgentest/recipe/
   ├── crystal_helmet.json
   ├── crystal_chestplate.json
   ├── crystal_leggings.json
   └── crystal_boots.json
   ```
-- **並行開発**: 1.1 精錬レシピ、2.2 特殊効果アイテム、3.3 カスタム構造物と並行可能
 
-#### 2.2 特殊効果アイテム（優先度: 中、競合リスク: 低）
-- **推定工数**: 4-6時間
-- **技術要件**: カスタムアイテム効果とエンチャント
-- **実装内容**:
+#### 2.2 特殊効果アイテム（❌ 実装取り消し - 2025年9月）
+- **状態**: 複雑化回避のため実装取り消し
+- **理由**: シンプルなMod構成を維持するため、ユーザー判断で削除
+- **削除されたアイテム**:
   - クリスタルポーション（一時的効果）
   - クリスタルアミュレット（常時効果）
-- **並行開発**: 他の全項目と並行可能
 
 ### 3. ワールド生成強化 🌍
 
@@ -205,20 +206,20 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 
 ### 🎯 推奨並行開発パターン
 
-#### パターンA: アイテム重視（推奨）
+#### パターンA: アイテム重視（✅ フェーズ1完了）
 ```
-フェーズ1（並行）: 1.1 精錬レシピ + 2.1 クリスタル防具 [8-11時間]
-フェーズ2（並行）: 2.2 特殊効果アイテム + 3.3 カスタム構造物 [16-22時間]
-フェーズ3（順次）: 1.2 カスタムレシピタイプ [8-12時間]
-フェーズ4（順次）: 3.1 クリスタル鉱石 → 3.2 洞窟装飾 [14-18時間]
+✅ フェーズ1（並行）: 1.1 精錬レシピ + 2.1 クリスタル防具 [8-11時間] - 2.1完了、1.1未実装
+❌ フェーズ2（並行）: 2.2 特殊効果アイテム + 3.3 カスタム構造物 [16-22時間] - 2.2削除、3.3未実装
+⏳ フェーズ3（順次）: 1.2 カスタムレシピタイプ [8-12時間] - 未実装
+⏳ フェーズ4（順次）: 3.1 クリスタル鉱石 → 3.2 洞窟装飾 [14-18時間] - 未実装
 ```
 
-#### パターンB: ワールド生成重視
+#### パターンB: ワールド生成重視（🎯 推奨継続ルート）
 ```
-フェーズ1（並行）: 1.1 精錬レシピ + 3.3 カスタム構造物 [14-19時間]
-フェーズ2（順次）: 3.1 クリスタル鉱石 → 3.2 洞窟装飾 [14-18時間]
-フェーズ3（並行）: 2.1 クリスタル防具 + 2.2 特殊効果アイテム [10-14時間]
-フェーズ4（順次）: 1.2 カスタムレシピタイプ [8-12時間]
+⏳ フェーズ1（並行）: 1.1 精錬レシピ + 3.3 カスタム構造物 [14-19時間] - 未実装
+⏳ フェーズ2（順次）: 3.1 クリスタル鉱石 → 3.2 洞窟装飾 [14-18時間] - 未実装
+✅ フェーズ3（並行）: 2.1 クリスタル防具 + 2.2 特殊効果アイテム [10-14時間] - 2.1完了、2.2削除
+⏳ フェーズ4（順次）: 1.2 カスタムレシピタイプ [8-12時間] - 未実装
 ```
 
 ### ⚠️ 競合回避ルール
