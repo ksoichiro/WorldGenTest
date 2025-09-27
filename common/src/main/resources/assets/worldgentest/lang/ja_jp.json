@@ -4,6 +4,9 @@
   "block.worldgentest.deepslate_crystal_ore": "深層クリスタル鉱石",
   "block.worldgentest.crystal_stalactite": "クリスタル鍾乳石",
   "block.worldgentest.glowing_moss": "光る苔",
+  "block.worldgentest.crystal_stone": "クリスタル石",
+  "block.worldgentest.crystal_cobblestone": "クリスタル丸石",
+  "block.worldgentest.crystal_bricks": "クリスタルレンガ",
   "item.worldgentest.crystal_shard": "クリスタルの欠片",
   "item.worldgentest.crystal_sword": "クリスタルソード",
   "item.worldgentest.crystal_pickaxe": "クリスタルピッケル",
@@ -15,5 +18,8 @@
   "item.worldgentest.crystal_leggings": "クリスタルレギンス",
   "item.worldgentest.crystal_boots": "クリスタルブーツ",
   "itemGroup.worldgentest.worldgentest": "WorldGenTest",
-  "biome.worldgentest.crystalline_caves": "クリスタルの洞窟"
+  "biome.worldgentest.crystalline_caves": "クリスタルの洞窟",
+  "advancement.worldgentest.smelting_crystal_cobblestone": "クリスタル精製",
+  "advancement.worldgentest.blasting_crystal_cobblestone": "高速クリスタル精製",
+  "advancement.worldgentest.crystal_bricks": "クリスタル建築"
 }

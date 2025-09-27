@@ -36,43 +36,43 @@
 - **Testing**: Manual testing via `runClient`
 
 ## Phase 3.1: Setup and Asset Generation
-- [ ] T001 [P] Create Python texture generation script in `/scripts/generate_crystal_textures.py`
-- [ ] T002 [P] Generate crystal stone textures from vanilla stone in `common/src/main/resources/assets/worldgentest/textures/block/`
-- [ ] T003 Verify existing project structure and dependencies for crystal stone implementation
+- [x] T001 [P] Create Python texture generation script in `/scripts/generate_crystal_textures.py`
+- [x] T002 [P] Generate crystal stone textures from vanilla stone in `common/src/main/resources/assets/worldgentest/textures/block/`
+- [x] T003 Verify existing project structure and dependencies for crystal stone implementation
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These validation scenarios MUST be documented and MUST FAIL before ANY implementation**
-- [ ] T004 [P] Document block behavior test in `tests/manual/block_behavior_test.md`
-- [ ] T005 [P] Document recipe functionality test in `tests/manual/recipe_test.md`
-- [ ] T006 [P] Document world generation test in `tests/manual/world_generation_test.md`
-- [ ] T007 [P] Document integration workflow test in `tests/manual/integration_test.md`
+- [x] T004 [P] Document block behavior test in `tests/manual/block_behavior_test.md`
+- [x] T005 [P] Document recipe functionality test in `tests/manual/recipe_test.md`
+- [x] T006 [P] Document world generation test in `tests/manual/world_generation_test.md`
+- [x] T007 [P] Document integration workflow test in `tests/manual/integration_test.md`
 
 ## Phase 3.3: Core Block Implementation (ONLY after tests are documented)
-- [ ] T008 [P] Crystal Stone block implementation in `common/src/main/java/com/example/worldgentest/ModBlocks.java`
-- [ ] T009 [P] Crystal Cobblestone block implementation in `common/src/main/java/com/example/worldgentest/ModBlocks.java`
-- [ ] T010 [P] Crystal Bricks block implementation in `common/src/main/java/com/example/worldgentest/ModBlocks.java`
-- [ ] T011 [P] Fabric block registration in `fabric/src/main/java/com/example/worldgentest/FabricModBlocks.java`
-- [ ] T012 [P] NeoForge block registration in `neoforge/src/main/java/com/example/worldgentest/ModBlocks.java`
+- [x] T008 [P] Crystal Stone block implementation in `neoforge/src/main/java/com/example/worldgentest/ModBlocks.java`
+- [x] T009 [P] Crystal Cobblestone block implementation in `neoforge/src/main/java/com/example/worldgentest/ModBlocks.java`
+- [x] T010 [P] Crystal Bricks block implementation in `neoforge/src/main/java/com/example/worldgentest/ModBlocks.java`
+- [x] T011 [P] Fabric block registration in `fabric/src/main/java/com/example/worldgentest/FabricModItems.java`
+- [x] T012 [P] NeoForge block registration in `neoforge/src/main/java/com/example/worldgentest/ModBlocks.java`
 
 ## Phase 3.4: Asset Integration
-- [ ] T013 [P] Block models for crystal stone in `common/src/main/resources/assets/worldgentest/models/block/`
-- [ ] T014 [P] Item models for crystal blocks in `common/src/main/resources/assets/worldgentest/models/item/`
-- [ ] T015 [P] Blockstate definitions in `common/src/main/resources/assets/worldgentest/blockstates/`
-- [ ] T016 [P] Block loot tables in `common/src/main/resources/data/worldgentest/loot_table/blocks/`
+- [x] T013 [P] Block models for crystal stone in `common/src/main/resources/assets/worldgentest/models/block/`
+- [x] T014 [P] Item models for crystal blocks in `common/src/main/resources/assets/worldgentest/models/item/`
+- [x] T015 [P] Blockstate definitions in `common/src/main/resources/assets/worldgentest/blockstates/`
+- [x] T016 [P] Block loot tables in `common/src/main/resources/data/worldgentest/loot_table/blocks/`
 
 ## Phase 3.5: Recipe System Implementation
-- [ ] T017 [P] Crystal stone smelting recipes in `common/src/main/resources/data/worldgentest/recipe/`
-- [ ] T018 [P] Crystal bricks crafting recipe in `common/src/main/resources/data/worldgentest/recipe/`
-- [ ] T019 [P] Smelting advancement in `common/src/main/resources/data/worldgentest/advancement/recipe/misc/`
-- [ ] T020 [P] Crafting advancement in `common/src/main/resources/data/worldgentest/advancement/recipe/decorations/`
+- [x] T017 [P] Crystal stone smelting recipes in `common/src/main/resources/data/worldgentest/recipe/`
+- [x] T018 [P] Crystal bricks crafting recipe in `common/src/main/resources/data/worldgentest/recipe/`
+- [x] T019 [P] Smelting advancement in `common/src/main/resources/data/worldgentest/advancement/recipe/misc/`
+- [x] T020 [P] Crafting advancement in `common/src/main/resources/data/worldgentest/advancement/recipe/decorations/`
 
 ## Phase 3.6: World Generation Integration
-- [ ] T021 Crystal stone world generation feature in `common/src/main/resources/data/worldgentest/worldgen/configured_feature/`
-- [ ] T022 Crystal stone placed feature in `common/src/main/resources/data/worldgentest/worldgen/placed_feature/`
-- [ ] T023 Biome integration in existing Crystalline Caves biome configuration
+- [x] T021 Crystal stone world generation feature in `common/src/main/resources/data/worldgentest/worldgen/configured_feature/`
+- [x] T022 Crystal stone placed feature in `common/src/main/resources/data/worldgentest/worldgen/placed_feature/`
+- [x] T023 Biome integration in existing Crystalline Caves biome configuration
 
 ## Phase 3.7: Localization and Polish
-- [ ] T024 [P] Localization files update in `common/src/main/resources/assets/worldgentest/lang/`
+- [x] T024 [P] Localization files update in `common/src/main/resources/assets/worldgentest/lang/`
 
 ## Dependencies
 - Asset generation (T001-T002) before asset integration (T013-T016)

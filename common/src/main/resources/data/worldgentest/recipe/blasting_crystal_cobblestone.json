@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "ingredient": {
+    "item": "worldgentest:crystal_cobblestone"
+  },
+  "result": {
+    "count": 1,
+    "id": "worldgentest:crystal_stone"
+  },
+  "experience": 0.1,
+  "cookingtime": 100
+}
