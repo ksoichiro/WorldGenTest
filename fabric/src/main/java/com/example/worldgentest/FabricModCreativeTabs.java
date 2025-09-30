@@ -18,6 +18,9 @@ public class FabricModCreativeTabs {
             .entries((context, entries) -> {
                 // ブロック類
                 entries.add(FabricModItems.CRYSTAL_BLOCK_ITEM);
+                entries.add(FabricModItems.CRYSTAL_STONE_ITEM);
+                entries.add(FabricModItems.CRYSTAL_COBBLESTONE_ITEM);
+                entries.add(FabricModItems.CRYSTAL_BRICKS_ITEM);
                 entries.add(FabricModItems.CRYSTAL_ORE_ITEM);
                 entries.add(FabricModItems.DEEPSLATE_CRYSTAL_ORE_ITEM);
                 entries.add(FabricModItems.CRYSTAL_STALACTITE_ITEM);
@@ -32,6 +35,8 @@ public class FabricModCreativeTabs {
                 entries.add(FabricModItems.CRYSTAL_AXE);
                 entries.add(FabricModItems.CRYSTAL_SHOVEL);
                 entries.add(FabricModItems.CRYSTAL_HOE);
+
+                // 防具類
                 entries.add(FabricModItems.CRYSTAL_HELMET);
                 entries.add(FabricModItems.CRYSTAL_CHESTPLATE);
                 entries.add(FabricModItems.CRYSTAL_LEGGINGS);

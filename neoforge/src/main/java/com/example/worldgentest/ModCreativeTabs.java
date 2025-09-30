@@ -20,6 +20,9 @@ public class ModCreativeTabs {
             .displayItems((parameters, output) -> {
                 // ブロック類
                 output.accept(ModBlocks.CRYSTAL_BLOCK_ITEM.get());
+                output.accept(ModBlocks.CRYSTAL_STONE_ITEM.get());
+                output.accept(ModBlocks.CRYSTAL_COBBLESTONE_ITEM.get());
+                output.accept(ModBlocks.CRYSTAL_BRICKS_ITEM.get());
                 output.accept(ModBlocks.CRYSTAL_ORE_ITEM.get());
                 output.accept(ModBlocks.DEEPSLATE_CRYSTAL_ORE_ITEM.get());
                 output.accept(ModBlocks.CRYSTAL_STALACTITE_ITEM.get());
@@ -34,6 +37,8 @@ public class ModCreativeTabs {
                 output.accept(ModBlocks.CRYSTAL_AXE.get());
                 output.accept(ModBlocks.CRYSTAL_SHOVEL.get());
                 output.accept(ModBlocks.CRYSTAL_HOE.get());
+
+                // 防具類
                 output.accept(ModBlocks.CRYSTAL_HELMET.get());
                 output.accept(ModBlocks.CRYSTAL_CHESTPLATE.get());
                 output.accept(ModBlocks.CRYSTAL_LEGGINGS.get());

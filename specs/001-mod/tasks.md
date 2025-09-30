@@ -73,6 +73,7 @@
 
 ## Phase 3.7: Localization and Polish
 - [x] T024 [P] Localization files update in `common/src/main/resources/assets/worldgentest/lang/`
+- [x] T025 [P] Creative tab integration for crystal stone blocks in platform-specific creative tab files
 
 ## Dependencies
 - Asset generation (T001-T002) before asset integration (T013-T016)
@@ -145,6 +146,18 @@ Task: "Block loot tables in common/src/main/resources/data/worldgentest/loot_tab
 - Target: stone_ore_replaceables tag
 - Biome: worldgentest:crystalline_caves only
 
+### T025: Creative Tab Integration
+**Files**:
+- `fabric/src/main/java/com/example/worldgentest/FabricModCreativeTabs.java`
+- `neoforge/src/main/java/com/example/worldgentest/ModCreativeTabs.java`
+**Purpose**: Add crystal stone blocks to mod creative tab for player accessibility
+**Requirements**:
+- Add CRYSTAL_STONE_ITEM to creative tab block section
+- Add CRYSTAL_COBBLESTONE_ITEM to creative tab block section
+- Add CRYSTAL_BRICKS_ITEM to creative tab block section
+- Maintain logical grouping: blocks → items → tools → armor
+- Ensure proper platform-specific registration
+
 ## Testing Integration
 
 ### Manual Testing Workflow (from quickstart.md)
@@ -155,11 +168,12 @@ Task: "Block loot tables in common/src/main/resources/data/worldgentest/loot_tab
 5. **Scenario 5**: Use bricks for building and verify behavior
 
 ### Validation Checklist
-- [ ] All block contracts implemented (T008-T012)
-- [ ] All recipe contracts implemented (T017-T020)
-- [ ] All world generation contracts implemented (T021-T023)
+- [x] All block contracts implemented (T008-T012)
+- [x] All recipe contracts implemented (T017-T020)
+- [x] All world generation contracts implemented (T021-T023)
+- [x] Creative tab integration completed (T025)
 - [ ] All quickstart scenarios pass
-- [ ] Both Fabric and NeoForge platforms work
+- [x] Both Fabric and NeoForge platforms work
 - [ ] Performance targets met (60 FPS, minimal generation overhead)
 
 ## Notes
