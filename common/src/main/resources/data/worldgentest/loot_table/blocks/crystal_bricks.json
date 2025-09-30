@@ -2,18 +2,20 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "bonus_rolls": 0,
-      "conditions": [],
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
       "entries": [
         {
           "type": "minecraft:item",
           "name": "worldgentest:crystal_bricks"
         }
       ],
-      "rolls": {
-        "type": "minecraft:constant",
-        "value": 1
-      }
+      "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "worldgentest:blocks/crystal_bricks"
 }

@@ -147,7 +147,8 @@ public class FabricModItems {
         Identifier.of(MOD_ID, "crystal_cobblestone"),
         new Block(AbstractBlock.Settings.create()
             .strength(2.0F, 6.0F)  // Same as vanilla cobblestone
-            .sounds(BlockSoundGroup.STONE))
+            .sounds(BlockSoundGroup.STONE)
+            .requiresTool())  // Requires pickaxe
     );
 
     public static final Item CRYSTAL_COBBLESTONE_ITEM = Registry.register(
@@ -162,7 +163,8 @@ public class FabricModItems {
         Identifier.of(MOD_ID, "crystal_bricks"),
         new Block(AbstractBlock.Settings.create()
             .strength(2.0F, 6.0F)  // Same as vanilla stone bricks
-            .sounds(BlockSoundGroup.STONE))
+            .sounds(BlockSoundGroup.STONE)
+            .requiresTool())  // Requires pickaxe
     );
 
     public static final Item CRYSTAL_BRICKS_ITEM = Registry.register(

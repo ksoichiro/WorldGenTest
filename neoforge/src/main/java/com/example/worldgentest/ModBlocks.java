@@ -156,7 +156,8 @@ SoundEvents.ARMOR_EQUIP_DIAMOND, // 装備音
     public static final Supplier<Block> CRYSTAL_COBBLESTONE = BLOCKS.register("crystal_cobblestone", () ->
         new Block(BlockBehaviour.Properties.of()
             .strength(2.0F, 6.0F)  // Same as vanilla cobblestone
-            .sound(SoundType.STONE))
+            .sound(SoundType.STONE)
+            .requiresCorrectToolForDrops())  // Requires pickaxe
     );
 
     public static final Supplier<Item> CRYSTAL_COBBLESTONE_ITEM = ITEMS.register("crystal_cobblestone", () ->
@@ -167,7 +168,8 @@ SoundEvents.ARMOR_EQUIP_DIAMOND, // 装備音
     public static final Supplier<Block> CRYSTAL_BRICKS = BLOCKS.register("crystal_bricks", () ->
         new Block(BlockBehaviour.Properties.of()
             .strength(2.0F, 6.0F)  // Same as vanilla stone bricks
-            .sound(SoundType.STONE))
+            .sound(SoundType.STONE)
+            .requiresCorrectToolForDrops())  // Requires pickaxe
     );
 
     public static final Supplier<Item> CRYSTAL_BRICKS_ITEM = ITEMS.register("crystal_bricks", () ->

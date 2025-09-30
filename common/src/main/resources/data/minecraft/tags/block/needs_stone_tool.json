@@ -1,7 +1,5 @@
 {
   "values": [
-    "worldgentest:crystal_ore",
-    "worldgentest:deepslate_crystal_ore",
     "worldgentest:crystal_stone",
     "worldgentest:crystal_cobblestone",
     "worldgentest:crystal_bricks"
