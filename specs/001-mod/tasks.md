@@ -75,6 +75,11 @@
 - [x] T024 [P] Localization files update in `common/src/main/resources/assets/worldgentest/lang/`
 - [x] T025 [P] Creative tab integration for crystal stone blocks in platform-specific creative tab files
 
+## Phase 3.8: Block Behavior and Loot Table Fixes
+- [x] T026 Fix block tag directory structure and add proper tool requirements
+- [x] T027 Update all loot tables to vanilla-compliant structure with random_sequence
+- [x] T028 Add requiresCorrectToolForDrops() to all crystal stone blocks for consistency
+
 ## Dependencies
 - Asset generation (T001-T002) before asset integration (T013-T016)
 - Tests documentation (T004-T007) before block implementation (T008-T012)
@@ -157,6 +162,39 @@ Task: "Block loot tables in common/src/main/resources/data/worldgentest/loot_tab
 - Add CRYSTAL_BRICKS_ITEM to creative tab block section
 - Maintain logical grouping: blocks → items → tools → armor
 - Ensure proper platform-specific registration
+
+### T026: Block Tag Directory Structure and Tool Requirements
+**Files**:
+- `data/minecraft/tags/block/mineable/pickaxe.json`
+- `data/minecraft/tags/block/needs_stone_tool.json`
+**Purpose**: Fix directory structure and add proper tool requirements
+**Requirements**:
+- Correct directory structure (block not blocks, mineable/pickaxe not mineable_with_pickaxe)
+- Add all crystal stone blocks to mineable/pickaxe.json
+- Create needs_stone_tool.json for stone tool level requirement
+- Ensure tags work with requiresCorrectToolForDrops() setting
+
+### T027: Vanilla-Compliant Loot Tables
+**Files**:
+- `data/worldgentest/loot_table/blocks/crystal_stone.json`
+- `data/worldgentest/loot_table/blocks/crystal_cobblestone.json`
+- `data/worldgentest/loot_table/blocks/crystal_bricks.json`
+**Purpose**: Update all loot tables to match vanilla structure exactly
+**Requirements**:
+- Add random_sequence to all loot tables
+- Correct survives_explosion placement (pools[0].conditions)
+- Fix silk touch predicate structure (predicates nesting)
+- Ensure crystal_stone drops crystal_cobblestone correctly
+
+### T028: Consistent Block Behavior
+**Files**:
+- `fabric/src/main/java/com/example/worldgentest/FabricModItems.java`
+- `neoforge/src/main/java/com/example/worldgentest/ModBlocks.java`
+**Purpose**: Add requiresCorrectToolForDrops() to all crystal stone blocks
+**Requirements**:
+- Add requiresCorrectToolForDrops() to crystal_cobblestone (both platforms)
+- Add requiresCorrectToolForDrops() to crystal_bricks (both platforms)
+- Ensure consistent behavior with vanilla stone, cobblestone, and stone bricks
 
 ## Testing Integration
 

@@ -616,3 +616,115 @@ Semantic Versioningに従う：
 - **追加されたアイテム**: CRYSTAL_STONE_ITEM、CRYSTAL_COBBLESTONE_ITEM、CRYSTAL_BRICKS_ITEM
 - **ファイル更新**: 2プラットフォーム対応（Fabric、NeoForge）
 - **タスクドキュメント更新**: T025タスクとしてタスクリストに記録
+
+### ブロックタグとルートテーブルの正しい実装（2025年9月学習）
+
+#### 問題発見
+- **Crystal Stoneが正しくドロップしない**: ダイヤのツルハシで採掘しても自分自身がドロップし、crystal_cobblestoneがドロップしない
+- **全ブロックがドロップしない状態**: ブロックタグのディレクトリ構造が間違っていた
+- **ルートテーブルの構造が不完全**: バニラと異なる構造で正常に機能しなかった
+
+#### 学習ポイント
+
+##### 1. Minecraft 1.21.1のディレクトリ構造（重要）
+- **正しい**: `data/minecraft/tags/block/` （単数形）
+- **間違い**: `data/minecraft/tags/blocks/` （複数形）
+- **正しい**: `data/minecraft/tags/block/mineable/pickaxe.json`
+- **間違い**: `data/minecraft/tags/block/mineable_with_pickaxe.json`
+
+##### 2. ブロックタグシステムの階層
+```
+data/minecraft/tags/block/
+├── mineable/
+│   └── pickaxe.json          # ピッケルで採掘可能なブロック
+├── needs_stone_tool.json     # 石ツール以上が必要
+├── needs_iron_tool.json      # 鉄ツール以上が必要
+└── needs_diamond_tool.json   # ダイヤツール以上が必要
+```
+
+##### 3. ツールレベル要求の設定
+- **`requiresCorrectToolForDrops()`**: Javaコードで設定
+- **ブロックタグ**: データパックで「正しいツール」を定義
+- **両方が必要**: どちらか一方だけでは機能しない
+
+##### 4. バニラ準拠のルートテーブル構造
+```json
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [                    // ← pool全体の条件
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [...],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "namespace:blocks/block_name"  // ← 必須（1.19.3+）
+}
+```
+
+##### 5. Crystal Stoneのような「別アイテムをドロップ」するブロック
+```json
+{
+  "type": "minecraft:alternatives",
+  "children": [
+    {
+      "type": "minecraft:item",
+      "conditions": [                    // ← entry個別の条件
+        {
+          "condition": "minecraft:match_tool",
+          "predicate": {
+            "predicates": {              // ← predicatesの入れ子構造
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "minecraft:silk_touch",
+                  "levels": {"min": 1}
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "name": "worldgentest:crystal_stone"
+    },
+    {
+      "type": "minecraft:item",
+      "conditions": [                    // ← cobblestone側の条件
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "name": "worldgentest:crystal_cobblestone"
+    }
+  ]
+}
+```
+
+#### 重要な発見
+1. **`survives_explosion`の配置**
+   - 単純なブロック: `pools[0].conditions`に配置
+   - alternativesブロック: 両方の場所に必要（poolとentry両方）
+
+2. **`random_sequence`の重要性**
+   - Minecraft 1.19.3以降で標準
+   - 一貫した乱数生成を保証
+   - デバッグ性とマルチプレイヤー同期の改善
+
+3. **シルクタッチの構造変化**
+   - 旧: `"enchantments": [...]`
+   - 新: `"predicates": {"minecraft:enchantments": [...]}`
+   - Minecraft 1.21.1での正式な構造
+
+#### トラブルシューティングプロセス
+1. **ブロックがドロップしない** → ブロックタグのディレクトリ確認
+2. **間違ったアイテムがドロップ** → ルートテーブルの条件とalternatives構造確認
+3. **バニラと比較** → 常に最新バージョンのバニラ実装を参照
+
+#### 実装詳細
+- **修正ファイル**: 7ファイル（ブロック定義、タグ、ルートテーブル）
+- **プラットフォーム**: Fabric/NeoForge両対応
+- **動作**: バニラの石系ブロックと完全に同じ動作を実現
