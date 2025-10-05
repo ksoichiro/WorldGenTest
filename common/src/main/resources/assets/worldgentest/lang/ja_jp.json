@@ -21,5 +21,9 @@
   "biome.worldgentest.crystalline_caves": "クリスタルの洞窟",
   "advancement.worldgentest.smelting_crystal_cobblestone": "クリスタル精製",
   "advancement.worldgentest.blasting_crystal_cobblestone": "高速クリスタル精製",
-  "advancement.worldgentest.crystal_bricks": "クリスタル建築"
+  "advancement.worldgentest.crystal_bricks": "クリスタル建築",
+  "advancement.worldgentest.crystal_purification.title": "クリスタル精製",
+  "advancement.worldgentest.crystal_purification.description": "クリスタル丸石をクリスタル石に精錬する",
+  "advancement.worldgentest.crystal_architecture.title": "クリスタル建築",
+  "advancement.worldgentest.crystal_architecture.description": "クリスタル石からクリスタルレンガを作る"
 }

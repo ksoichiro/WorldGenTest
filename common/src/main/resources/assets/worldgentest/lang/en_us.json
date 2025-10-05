@@ -21,5 +21,9 @@
   "biome.worldgentest.crystalline_caves": "Crystalline Caves",
   "advancement.worldgentest.smelting_crystal_cobblestone": "Crystal Purification",
   "advancement.worldgentest.blasting_crystal_cobblestone": "Fast Crystal Purification",
-  "advancement.worldgentest.crystal_bricks": "Crystal Architecture"
+  "advancement.worldgentest.crystal_bricks": "Crystal Architecture",
+  "advancement.worldgentest.crystal_purification.title": "Crystal Purification",
+  "advancement.worldgentest.crystal_purification.description": "Smelt Crystal Cobblestone into Crystal Stone",
+  "advancement.worldgentest.crystal_architecture.title": "Crystal Architecture",
+  "advancement.worldgentest.crystal_architecture.description": "Craft Crystal Bricks from Crystal Stone"
 }
