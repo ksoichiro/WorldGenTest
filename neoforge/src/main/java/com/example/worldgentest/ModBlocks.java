@@ -138,6 +138,44 @@ SoundEvents.ARMOR_EQUIP_DIAMOND, // 装備音
         new BlockItem(GLOWING_MOSS.get(), new Item.Properties())
     );
 
+    // Crystal Stone Block System - 3 new blocks for crystal stone workflow
+
+    // Crystal Stone - naturally generated, drops cobblestone when mined normally
+    public static final Supplier<Block> CRYSTAL_STONE = BLOCKS.register("crystal_stone", () ->
+        new Block(BlockBehaviour.Properties.of()
+            .strength(1.5F, 6.0F)  // Same as vanilla stone
+            .sound(SoundType.STONE)
+            .requiresCorrectToolForDrops())  // Requires pickaxe
+    );
+
+    public static final Supplier<Item> CRYSTAL_STONE_ITEM = ITEMS.register("crystal_stone", () ->
+        new BlockItem(CRYSTAL_STONE.get(), new Item.Properties())
+    );
+
+    // Crystal Cobblestone - result of mining crystal stone, can be smelted back to crystal stone
+    public static final Supplier<Block> CRYSTAL_COBBLESTONE = BLOCKS.register("crystal_cobblestone", () ->
+        new Block(BlockBehaviour.Properties.of()
+            .strength(2.0F, 6.0F)  // Same as vanilla cobblestone
+            .sound(SoundType.STONE)
+            .requiresCorrectToolForDrops())  // Requires pickaxe
+    );
+
+    public static final Supplier<Item> CRYSTAL_COBBLESTONE_ITEM = ITEMS.register("crystal_cobblestone", () ->
+        new BlockItem(CRYSTAL_COBBLESTONE.get(), new Item.Properties())
+    );
+
+    // Crystal Bricks - decorative block crafted from 4 crystal stones
+    public static final Supplier<Block> CRYSTAL_BRICKS = BLOCKS.register("crystal_bricks", () ->
+        new Block(BlockBehaviour.Properties.of()
+            .strength(2.0F, 6.0F)  // Same as vanilla stone bricks
+            .sound(SoundType.STONE)
+            .requiresCorrectToolForDrops())  // Requires pickaxe
+    );
+
+    public static final Supplier<Item> CRYSTAL_BRICKS_ITEM = ITEMS.register("crystal_bricks", () ->
+        new BlockItem(CRYSTAL_BRICKS.get(), new Item.Properties())
+    );
+
     // クリスタルツール（NeoForgeのコンストラクタ仕様に合わせる）
     public static final Supplier<Item> CRYSTAL_SWORD = ITEMS.register("crystal_sword", () ->
         new SwordItem(ModToolTiers.CRYSTAL, new Item.Properties()

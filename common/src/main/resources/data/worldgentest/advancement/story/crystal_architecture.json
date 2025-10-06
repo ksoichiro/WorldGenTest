@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "id": "worldgentest:crystal_bricks"
+    },
+    "title": {
+      "translate": "advancement.worldgentest.crystal_architecture.title"
+    },
+    "description": {
+      "translate": "advancement.worldgentest.crystal_architecture.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "worldgentest:story/crystal_purification",
+  "criteria": {
+    "crafted_bricks": {
+      "trigger": "minecraft:recipe_crafted",
+      "conditions": {
+        "recipe_id": "worldgentest:crystal_bricks"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "crafted_bricks"
+    ]
+  ]
+}

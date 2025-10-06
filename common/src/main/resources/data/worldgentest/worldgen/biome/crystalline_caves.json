@@ -102,6 +102,7 @@
     [
       "worldgentest:crystal_block_placed",
       "worldgentest:ancient_ruins_placed",
+      "worldgentest:crystal_stone_ore_placed",
       "worldgentest:crystal_ore_placed",
       "worldgentest:deepslate_crystal_ore_placed",
       "minecraft:ore_dirt",

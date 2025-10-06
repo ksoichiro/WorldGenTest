@@ -123,6 +123,56 @@ public class FabricModItems {
         new BlockItem(GLOWING_MOSS, new Item.Settings())
     );
 
+    // Crystal Stone Block System - 3 new blocks for crystal stone workflow
+
+    // Crystal Stone - naturally generated, drops cobblestone when mined normally
+    public static final Block CRYSTAL_STONE = Registry.register(
+        Registries.BLOCK,
+        Identifier.of(MOD_ID, "crystal_stone"),
+        new Block(AbstractBlock.Settings.create()
+            .strength(1.5F, 6.0F)  // Same as vanilla stone
+            .sounds(BlockSoundGroup.STONE)
+            .requiresTool())  // Requires pickaxe
+    );
+
+    public static final Item CRYSTAL_STONE_ITEM = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "crystal_stone"),
+        new BlockItem(CRYSTAL_STONE, new Item.Settings())
+    );
+
+    // Crystal Cobblestone - result of mining crystal stone, can be smelted back to crystal stone
+    public static final Block CRYSTAL_COBBLESTONE = Registry.register(
+        Registries.BLOCK,
+        Identifier.of(MOD_ID, "crystal_cobblestone"),
+        new Block(AbstractBlock.Settings.create()
+            .strength(2.0F, 6.0F)  // Same as vanilla cobblestone
+            .sounds(BlockSoundGroup.STONE)
+            .requiresTool())  // Requires pickaxe
+    );
+
+    public static final Item CRYSTAL_COBBLESTONE_ITEM = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "crystal_cobblestone"),
+        new BlockItem(CRYSTAL_COBBLESTONE, new Item.Settings())
+    );
+
+    // Crystal Bricks - decorative block crafted from 4 crystal stones
+    public static final Block CRYSTAL_BRICKS = Registry.register(
+        Registries.BLOCK,
+        Identifier.of(MOD_ID, "crystal_bricks"),
+        new Block(AbstractBlock.Settings.create()
+            .strength(2.0F, 6.0F)  // Same as vanilla stone bricks
+            .sounds(BlockSoundGroup.STONE)
+            .requiresTool())  // Requires pickaxe
+    );
+
+    public static final Item CRYSTAL_BRICKS_ITEM = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "crystal_bricks"),
+        new BlockItem(CRYSTAL_BRICKS, new Item.Settings())
+    );
+
 
     // クリスタルツール材料のToolMaterial実装（ダイヤモンドレベル）
     public static final ToolMaterial CRYSTAL_TOOL_MATERIAL = new ToolMaterial() {

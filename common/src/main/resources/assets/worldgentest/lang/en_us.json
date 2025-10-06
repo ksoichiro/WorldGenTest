@@ -4,6 +4,9 @@
   "block.worldgentest.deepslate_crystal_ore": "Deepslate Crystal Ore",
   "block.worldgentest.crystal_stalactite": "Crystal Stalactite",
   "block.worldgentest.glowing_moss": "Glowing Moss",
+  "block.worldgentest.crystal_stone": "Crystal Stone",
+  "block.worldgentest.crystal_cobblestone": "Crystal Cobblestone",
+  "block.worldgentest.crystal_bricks": "Crystal Bricks",
   "item.worldgentest.crystal_shard": "Crystal Shard",
   "item.worldgentest.crystal_sword": "Crystal Sword",
   "item.worldgentest.crystal_pickaxe": "Crystal Pickaxe",
@@ -15,5 +18,12 @@
   "item.worldgentest.crystal_leggings": "Crystal Leggings",
   "item.worldgentest.crystal_boots": "Crystal Boots",
   "itemGroup.worldgentest.worldgentest": "WorldGenTest",
-  "biome.worldgentest.crystalline_caves": "Crystalline Caves"
+  "biome.worldgentest.crystalline_caves": "Crystalline Caves",
+  "advancement.worldgentest.smelting_crystal_cobblestone": "Crystal Purification",
+  "advancement.worldgentest.blasting_crystal_cobblestone": "Fast Crystal Purification",
+  "advancement.worldgentest.crystal_bricks": "Crystal Architecture",
+  "advancement.worldgentest.crystal_purification.title": "Crystal Purification",
+  "advancement.worldgentest.crystal_purification.description": "Smelt Crystal Cobblestone into Crystal Stone",
+  "advancement.worldgentest.crystal_architecture.title": "Crystal Architecture",
+  "advancement.worldgentest.crystal_architecture.description": "Craft Crystal Bricks from Crystal Stone"
 }

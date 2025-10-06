@@ -590,3 +590,363 @@ Semantic Versioningに従う：
 - ワールド生成統合（バイオーム・feature・配置）
 - ルートテーブル + ブロックタグシステム
 - 適正ツール設定（ダイヤモンド以上要求）
+
+### クリエイティブタブ統合の重要性（2025年9月学習）
+
+#### 問題発見
+- **新規ブロック追加時の見落とし**: Crystal Stone、Crystal Cobblestone、Crystal Bricksがクリエイティブタブに表示されない
+- **ユーザビリティ問題**: プレイヤーがクリエイティブモードで新ブロックにアクセスできない状況
+
+#### 学習ポイント
+1. **プラットフォーム別クリエイティブタブ管理**
+   - **Fabric**: `FabricModCreativeTabs.java`での`.entries()`メソッド使用
+   - **NeoForge**: `ModCreativeTabs.java`での`.displayItems()`メソッド使用
+   - 両プラットフォームで同期的な更新が必要
+
+2. **アイテム追加のベストプラクティス**
+   - **論理的グループ化**: ブロック → アイテム → ツール → 防具の順序維持
+   - **新規ブロック追加時の必須チェック**: ブロック定義 → クリエイティブタブ統合 → テスト
+   - **タスク管理の重要性**: 実装タスクリストにクリエイティブタブ更新を含める
+
+3. **開発プロセス改善**
+   - **新機能実装チェックリスト**: 登録 → モデル → レシピ → **クリエイティブタブ** → テスト
+   - **両プラットフォーム同期**: 一方のプラットフォームで実装したら、もう一方も即座に更新
+
+#### 実装詳細
+- **追加されたアイテム**: CRYSTAL_STONE_ITEM、CRYSTAL_COBBLESTONE_ITEM、CRYSTAL_BRICKS_ITEM
+- **ファイル更新**: 2プラットフォーム対応（Fabric、NeoForge）
+- **タスクドキュメント更新**: T025タスクとしてタスクリストに記録
+
+### ブロックタグとルートテーブルの正しい実装（2025年9月学習）
+
+#### 問題発見
+- **Crystal Stoneが正しくドロップしない**: ダイヤのツルハシで採掘しても自分自身がドロップし、crystal_cobblestoneがドロップしない
+- **全ブロックがドロップしない状態**: ブロックタグのディレクトリ構造が間違っていた
+- **ルートテーブルの構造が不完全**: バニラと異なる構造で正常に機能しなかった
+
+#### 学習ポイント
+
+##### 1. Minecraft 1.21.1のディレクトリ構造（重要）
+- **正しい**: `data/minecraft/tags/block/` （単数形）
+- **間違い**: `data/minecraft/tags/blocks/` （複数形）
+- **正しい**: `data/minecraft/tags/block/mineable/pickaxe.json`
+- **間違い**: `data/minecraft/tags/block/mineable_with_pickaxe.json`
+
+##### 2. ブロックタグシステムの階層
+```
+data/minecraft/tags/block/
+├── mineable/
+│   └── pickaxe.json          # ピッケルで採掘可能なブロック
+├── needs_stone_tool.json     # 石ツール以上が必要
+├── needs_iron_tool.json      # 鉄ツール以上が必要
+└── needs_diamond_tool.json   # ダイヤツール以上が必要
+```
+
+##### 3. ツールレベル要求の設定
+- **`requiresCorrectToolForDrops()`**: Javaコードで設定
+- **ブロックタグ**: データパックで「正しいツール」を定義
+- **両方が必要**: どちらか一方だけでは機能しない
+
+##### 4. バニラ準拠のルートテーブル構造
+```json
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [                    // ← pool全体の条件
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [...],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "namespace:blocks/block_name"  // ← 必須（1.19.3+）
+}
+```
+
+##### 5. Crystal Stoneのような「別アイテムをドロップ」するブロック
+```json
+{
+  "type": "minecraft:alternatives",
+  "children": [
+    {
+      "type": "minecraft:item",
+      "conditions": [                    // ← entry個別の条件
+        {
+          "condition": "minecraft:match_tool",
+          "predicate": {
+            "predicates": {              // ← predicatesの入れ子構造
+              "minecraft:enchantments": [
+                {
+                  "enchantments": "minecraft:silk_touch",
+                  "levels": {"min": 1}
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "name": "worldgentest:crystal_stone"
+    },
+    {
+      "type": "minecraft:item",
+      "conditions": [                    // ← cobblestone側の条件
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "name": "worldgentest:crystal_cobblestone"
+    }
+  ]
+}
+```
+
+#### 重要な発見
+1. **`survives_explosion`の配置**
+   - 単純なブロック: `pools[0].conditions`に配置
+   - alternativesブロック: 両方の場所に必要（poolとentry両方）
+
+2. **`random_sequence`の重要性**
+   - Minecraft 1.19.3以降で標準
+   - 一貫した乱数生成を保証
+   - デバッグ性とマルチプレイヤー同期の改善
+
+3. **シルクタッチの構造変化**
+   - 旧: `"enchantments": [...]`
+   - 新: `"predicates": {"minecraft:enchantments": [...]}`
+   - Minecraft 1.21.1での正式な構造
+
+#### トラブルシューティングプロセス
+1. **ブロックがドロップしない** → ブロックタグのディレクトリ確認
+2. **間違ったアイテムがドロップ** → ルートテーブルの条件とalternatives構造確認
+3. **バニラと比較** → 常に最新バージョンのバニラ実装を参照
+
+#### 実装詳細
+- **修正ファイル**: 7ファイル（ブロック定義、タグ、ルートテーブル）
+- **プラットフォーム**: Fabric/NeoForge両対応
+- **動作**: バニラの石系ブロックと完全に同じ動作を実現
+
+### バニラレシピ統合の実装パターン（2025年10月学習）
+
+#### 問題：石切台レシピへのクリスタル石の統合
+
+**要件：**
+- バニラの石でも、クリスタル石でも石切台を作成可能にする
+- かまどはクリスタル丸石でも作成可能（丸石系との互換性）
+- レシピは可能な限り少なく保つ
+
+**試行錯誤の経緯：**
+1. **MOD側で別レシピ作成** → レシピが2つになる ❌
+2. **バニラレシピオーバーライド試行** → レシピが効かない ❌
+3. **タグを使ったMODレシピ追加** → 最終的に成功 ✓
+
+#### 学習ポイント
+
+##### 1. バニラレシピのタグ使用状況の確認が重要
+
+**かまど（成功例）：**
+```json
+// data/minecraft/recipe/furnace.json（バニラ）
+"key": {
+  "#": {
+    "tag": "minecraft:stone_crafting_materials"
+  }
+}
+```
+- バニラですでにタグを使用 → タグに追加するだけでOK
+- `stone_crafting_materials` タグに `crystal_cobblestone` を追加すれば動作
+
+**石切台（複雑な例）：**
+```json
+// data/minecraft/recipe/stonecutter.json（バニラ）
+"key": {
+  "#": {
+    "item": "minecraft:stone"
+  }
+}
+```
+- バニラは特定のアイテムを直接指定 → タグではない
+- レシピオーバーライドを試みたが、バニラレシピが優先される問題
+
+##### 2. バニラタグの内容の正確な把握
+
+**`minecraft:stone_crafting_materials`（かまど用）：**
+```json
+{
+  "values": [
+    "minecraft:cobblestone",
+    "minecraft:blackstone",
+    "minecraft:cobbled_deepslate"
+  ]
+}
+```
+- 丸石系のみ、**通常の石は含まれない**
+
+**`minecraft:stone_tool_materials`（ツール作成用）：**
+```json
+{
+  "values": [
+    "minecraft:cobblestone",
+    "minecraft:blackstone",
+    "minecraft:cobbled_deepslate"
+  ]
+}
+```
+- 同じく丸石系のみ
+- 石切台レシピとは無関係（名前に惑わされない）
+
+##### 3. 解決策：MOD専用タグの作成
+
+**問題：**
+既存のMinecraftタグは丸石系を含むため、石切台レシピに使えない
+
+**解決策：**
+MOD専用のタグ `worldgentest:stone_blocks` を作成
+```json
+// data/worldgentest/tags/item/stone_blocks.json
+{
+  "replace": false,
+  "values": [
+    "minecraft:stone",
+    "worldgentest:crystal_stone"
+  ]
+}
+```
+
+**MODレシピでこのタグを使用：**
+```json
+// data/worldgentest/recipe/stonecutter_from_crystal_stone.json
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "#": {
+      "tag": "worldgentest:stone_blocks"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "minecraft:stonecutter"
+  }
+}
+```
+
+##### 4. バニラレシピオーバーライドの制約
+
+**試みた方法：**
+- `data/minecraft/recipe/stonecutter.json` を作成してタグ使用に変更
+- ビルド出力では正しく生成されている
+
+**結果：**
+- ゲーム内では効果なし
+- バニラレシピがMODのオーバーライドより優先される
+
+**教訓：**
+- バニラレシピのオーバーライドは信頼性が低い
+- 他のMODとの競合リスクもある
+- MOD側で追加レシピを作る方が安全
+
+##### 5. レシピフォーマット（Minecraft 1.21.1）
+
+**タグ指定（オブジェクト形式）：**
+```json
+"key": {
+  "#": {
+    "tag": "namespace:tag_name"
+  }
+}
+```
+
+**アイテム指定（オブジェクト形式）：**
+```json
+"key": {
+  "#": {
+    "item": "namespace:item_name"
+  }
+}
+```
+
+**間違った形式（文字列）：**
+```json
+"key": {
+  "#": "#namespace:tag_name"  // ❌ 動作しない
+}
+```
+
+#### 最終実装パターン
+
+**ファイル構成：**
+```
+data/
+├── minecraft/tags/item/
+│   └── stone_crafting_materials.json  # かまど用（丸石系に追加）
+└── worldgentest/
+    ├── tags/item/
+    │   └── stone_blocks.json          # 石切台用（石系のみ）
+    ├── recipe/
+    │   └── stonecutter_from_crystal_stone.json
+    └── advancement/recipe/misc/
+        └── stonecutter_from_crystal_stone.json
+```
+
+**結果：**
+- **かまどレシピ1つ**：丸石、深層岩の丸石、クリスタル丸石で作成可能
+- **石切台レシピ2つ**：
+  1. バニラレシピ（通常の石のみ）
+  2. MODレシピ（通常の石、クリスタル石）
+- レシピブック統合：正しくアドバンスメントで解放
+
+#### ベストプラクティス
+
+1. **バニラレシピの調査を最優先**
+   - バニラのレシピファイルを必ず確認
+   - タグを使っているか、アイテム直接指定か
+   - 使用しているタグの内容を確認
+
+2. **タグの内容を正確に把握**
+   - タグ名から推測せず、実際の内容を確認
+   - バニラタグと同名のタグを作る場合は `replace: false` を使用
+
+3. **MOD専用タグの活用**
+   - 既存タグが要件に合わない場合は、MOD専用タグを作成
+   - 拡張性を考慮した命名（例：`stone_blocks` は将来的に他の石系ブロックも追加可能）
+
+4. **バニラレシピオーバーライドは避ける**
+   - 動作が不確実
+   - 他のMODとの競合リスク
+   - MOD側で追加レシピを作る方が安全
+
+5. **レシピが複数になることを許容**
+   - バニラとMODで別レシピになっても、ユーザビリティに大きな問題はない
+   - 無理にオーバーライドするより安全性を優先
+
+#### トラブルシューティングプロセス
+
+1. **バニラレシピの確認**
+   ```bash
+   jar xf minecraft.jar data/minecraft/recipe/furnace.json
+   ```
+
+2. **バニラタグの確認**
+   ```bash
+   jar xf minecraft.jar data/minecraft/tags/item/stone_crafting_materials.json
+   ```
+
+3. **ビルド出力の確認**
+   ```bash
+   cat fabric/build/resources/main/data/minecraft/recipe/stonecutter.json
+   ```
+
+4. **段階的テスト**
+   - レシピファイルが正しくビルドされているか
+   - タグファイルが正しくビルドされているか
+   - ゲーム内で正しく動作するか
+
+#### 実装詳細
+- **追加ファイル**: 3ファイル（タグ、レシピ、アドバンスメント）
+- **プラットフォーム**: Fabric/NeoForge両対応
+- **動作**: バニラとMODのレシピが共存、互換性を保つ
