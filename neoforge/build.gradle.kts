@@ -29,6 +29,9 @@ neoForge {
 dependencies {
     implementation(project(":common"))
 
+    // TerraBlender
+    implementation("com.github.glitchfiend:TerraBlender-neoforge:${project.property("minecraft_version")}-${project.property("terrablender_version")}")
+
     // NeoForge固有の実装に必要な依存関係は自動的に追加される
 }
 

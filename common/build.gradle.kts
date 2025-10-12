@@ -9,6 +9,9 @@ architectury {
 
 dependencies {
     // 純粋なMinecraftクラス（プラットフォーム固有依存関係なし）
+
+    // TerraBlender (compileOnly - ランタイムは各プラットフォームが提供)
+    compileOnly("com.github.glitchfiend:TerraBlender-common:${project.property("minecraft_version")}-${project.property("terrablender_version")}")
 }
 
 publishing {

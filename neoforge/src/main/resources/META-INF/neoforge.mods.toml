@@ -32,4 +32,11 @@ versionRange="[1.21.1,1.22)"
 ordering="NONE"
 side="BOTH"
 
+[[dependencies.worldgentest]]
+modId="terrablender"
+type="required"
+versionRange="[4.1.0,)"
+ordering="AFTER"
+side="BOTH"
+
 # Architectury依存関係を削除 - 純粋なNeoForge実装

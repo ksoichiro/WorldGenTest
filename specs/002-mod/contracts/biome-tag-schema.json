@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://worldgentest.example.com/schemas/biome-tag.json",
+  "title": "Minecraft Biome Tag",
+  "description": "Schema for Minecraft 1.21.1 biome tags to categorize and group biomes for world generation and game mechanics",
+  "type": "object",
+  "required": ["values"],
+  "properties": {
+    "replace": {
+      "type": "boolean",
+      "description": "Whether to replace the entire tag contents (true) or append to existing values (false). IMPORTANT: Use false for vanilla tags to avoid breaking vanilla biomes",
+      "default": false
+    },
+    "values": {
+      "type": "array",
+      "description": "List of biome resource locations to include in this tag",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "description": "Biome resource location (namespace:path)",
+        "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$"
+      }
+    }
+  },
+  "examples": [
+    {
+      "replace": false,
+      "values": [
+        "worldgentest:crystalline_caves"
+      ]
+    }
+  ]
+}

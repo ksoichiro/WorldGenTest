@@ -26,6 +26,9 @@ public class WorldGenTestNeoForge {
         NeoForgeFeatures.register(modEventBus);
         NeoForgeBiomes.register(modEventBus);
 
+        // TerraBlender登録
+        NeoForgeTerraBlenderInit.register(modEventBus);
+
         // エンティティ属性登録イベント
         modEventBus.addListener(this::entityAttributes);
     }
