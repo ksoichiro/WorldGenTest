@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://worldgentest.example.com/schemas/multi-noise-parameters.json",
+  "title": "Multi-Noise Biome Source Parameter List",
+  "description": "Schema for Minecraft 1.21.1 multi-noise biome source parameter list to integrate Crystalline Caves into world generation",
+  "type": "object",
+  "required": ["preset", "biomes"],
+  "properties": {
+    "preset": {
+      "type": "string",
+      "description": "The world generation preset to extend",
+      "enum": ["minecraft:overworld", "minecraft:nether", "minecraft:end"],
+      "default": "minecraft:overworld"
+    },
+    "biomes": {
+      "type": "array",
+      "description": "List of biomes with their generation parameters",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/definitions/biome_entry"
+      }
+    }
+  },
+  "definitions": {
+    "biome_entry": {
+      "type": "object",
+      "required": ["biome", "parameters"],
+      "properties": {
+        "biome": {
+          "type": "string",
+          "description": "Biome resource location (namespace:path)",
+          "pattern": "^[a-z0-9_.-]+:[a-z0-9_.-]+$",
+          "examples": ["worldgentest:crystalline_caves"]
+        },
+        "parameters": {
+          "$ref": "#/definitions/noise_parameters"
+        }
+      }
+    },
+    "noise_parameters": {
+      "type": "object",
+      "required": [
+        "temperature",
+        "humidity",
+        "continentalness",
+        "erosion",
+        "depth",
+        "weirdness",
+        "offset"
+      ],
+      "properties": {
+        "temperature": {
+          "$ref": "#/definitions/parameter_range",
+          "description": "Temperature range (-1.0 = cold, 1.0 = hot)",
+          "examples": [[0.5, 1.0]]
+        },
+        "humidity": {
+          "$ref": "#/definitions/parameter_range",
+          "description": "Humidity range (-1.0 = dry, 1.0 = humid)",
+          "examples": [[0.2, 0.6]]
+        },
+        "continentalness": {
+          "$ref": "#/definitions/parameter_range",
+          "description": "Continentalness range (-1.0 = ocean, 1.0 = inland)",
+          "examples": [[0.3, 0.9]]
+        },
+        "erosion": {
+          "$ref": "#/definitions/parameter_range",
+          "description": "Erosion range (-1.0 = mountains, 1.0 = plains)",
+          "examples": [[-0.5, 0.5]]
+        },
+        "depth": {
+          "$ref": "#/definitions/parameter_range",
+          "description": "Depth range (0.0 = surface, 1.0 = deep underground). IMPORTANT: Min should be >= 0.2 for cave biomes to prevent surface leakage",
+          "examples": [[0.2, 1.0]]
+        },
+        "weirdness": {
+          "$ref": "#/definitions/parameter_range",
+          "description": "Weirdness range (-1.0 to 1.0, controls biome variants)",
+          "examples": [[-0.3, 0.3]]
+        },
+        "offset": {
+          "type": "number",
+          "description": "Spawn frequency offset (0.0 = standard, negative = rarer, positive = more common)",
+          "minimum": -1.0,
+          "maximum": 1.0,
+          "default": 0.0,
+          "examples": [0.0, -0.2, -0.5]
+        }
+      }
+    },
+    "parameter_range": {
+      "type": "array",
+      "description": "Parameter range [min, max]",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "number",
+        "minimum": -1.0,
+        "maximum": 1.0
+      }
+    }
+  },
+  "examples": [
+    {
+      "preset": "minecraft:overworld",
+      "biomes": [
+        {
+          "biome": "worldgentest:crystalline_caves",
+          "parameters": {
+            "temperature": [0.5, 1.0],
+            "humidity": [0.2, 0.6],
+            "continentalness": [0.3, 0.9],
+            "erosion": [-0.5, 0.5],
+            "depth": [0.2, 1.0],
+            "weirdness": [-0.3, 0.3],
+            "offset": 0.0
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -19,6 +19,13 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 - **安定性**: 2025年1月に安定版リリース
 - **パフォーマンス**: より高速なビルド処理
 
+### Terrablender採用理由（2025年10月追加）
+- **互換性の高さ**: 他のMODとのバイオーム競合を自動解決
+- **保守性**: 巨大なバニラパラメータファイル（7593エントリー）の管理から解放
+- **シンプルな統合**: カスタムワールドプリセット不要、バニラの「Default」ワールドタイプに自動統合
+- **業界標準**: 多くの人気MODで採用されている実績あるライブラリ
+- **プラットフォーム対応**: Fabric/NeoForge両対応の実装パターン確立
+
 ## 開発方針
 
 ### コード品質
@@ -56,10 +63,16 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 - レシピシステム統合
 
 #### カスタムバイオーム
-- Crystalline Caves（クリスタルの洞窟）
+- **Crystalline Caves**（クリスタルの洞窟）- 2025年10月Terrablender統合完了
 - バイオーム設定（温度、湿度、色彩）
 - Mob生成設定
 - 地形生成設定（洞窟、鉱石）
+- **Terrablenderによる実装**:
+  - Region-based統合システム（`CrystallineCavesRegion`）
+  - 地下専用バイオーム（depth: 0.2-1.0）
+  - バニラ「Default」ワールドタイプへの自動統合
+  - プラットフォーム別実装（Fabric: `FabricCrystallineCavesRegion`、NeoForge: `CrystallineCavesRegion`）
+  - Yarn/Mojang mapping差異の解決パターン確立
 
 #### カスタムエンティティ
 - [x] Crystal Golem（クリスタルゴーレム）- Fabric/NeoForge両対応
@@ -88,10 +101,14 @@ WorldGenTestは、Architecturyフレームワークを使用したMinecraft Mod�
 #### ワールド生成システム
 - クリスタル鉱石システム（通常・深層岩バリアント）
 - 洞窟装飾ブロック（クリスタル鍾乳石・光る苔）
-- Crystalline Cavesバイオーム統合
+- **Crystalline Cavesバイオーム統合**（Terrablender 4.1.0.3使用）
 - ルートテーブルシステム（Minecraft 1.21.1対応）
 - ブロックタグシステム（適正ツール要求）
 - 高度範囲指定による鉱石生成制御
+- **Terrablender統合**:
+  - カスタムワールドプリセット不要
+  - バニラワールドタイプへの自動統合
+  - 他MODとの互換性を保持
 
 ## 今後の機能拡張計画
 
@@ -950,3 +967,201 @@ data/
 - **追加ファイル**: 3ファイル（タグ、レシピ、アドバンスメント）
 - **プラットフォーム**: Fabric/NeoForge両対応
 - **動作**: バニラとMODのレシピが共存、互換性を保つ
+
+### Terrablenderによるバイオーム統合の成功パターン（2025年10月完了）
+
+#### 問題：巨大なバニラパラメータファイルによる保守性の問題
+
+**背景：**
+- 当初、カスタムワールドプリセットでバイオーム統合を試みた
+- `multi_noise_biome_source_parameter_list/overworld_caves.json`に7593エントリーの巨大ファイルを生成
+- ファイルサイズ3.3MB、メンテナンス不可能
+- ゲーム起動時にクラッシュが発生
+
+**試行錯誤の経緯：**
+1. **カスタムワールドプリセット作成** → `/locate biome`でバイオームが見つからない
+2. **バニラパラメータ全コピー** → 巨大ファイルでクラッシュ、メンテナンス不可能
+3. **Terrablenderライブラリ採用** → 最終的に成功 ✓
+
+#### 学習ポイント
+
+##### 1. Terrablenderの利点
+
+**保守性：**
+- コード量：100行程度のRegionクラスのみ
+- 設定ファイル：不要（プログラマティックに定義）
+- バニラ互換性：Terrablenderが自動管理
+
+**互換性：**
+- 他MODとの競合自動解決
+- バニラワールドタイプに自動統合
+- カスタムワールドプリセット不要
+
+**プラットフォーム対応：**
+- Fabric/NeoForge両対応
+- プラットフォーム固有のmapping差異を適切に処理
+
+##### 2. プラットフォーム別実装パターン
+
+**Common モジュール：**
+```java
+// CrystallineCavesRegion.java (Mojang mapping for NeoForge)
+public class CrystallineCavesRegion extends Region {
+    public CrystallineCavesRegion(ResourceLocation name, int weight) {
+        super(name, RegionType.OVERWORLD, weight);
+    }
+
+    @Override
+    public void addBiomes(Registry<Biome> registry,
+                         Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
+        this.addBiome(mapper,
+            Climate.parameters(
+                Climate.Parameter.span(-1.0f, 1.0f),  // temperature
+                Climate.Parameter.span(-1.0f, 1.0f),  // humidity
+                Climate.Parameter.span(-1.0f, 1.0f),  // continentalness
+                Climate.Parameter.span(-1.0f, 1.0f),  // erosion
+                Climate.Parameter.span(0.2f, 1.0f),   // depth: underground only
+                Climate.Parameter.span(-1.0f, 1.0f),  // weirdness
+                0.0f                                   // offset
+            ),
+            CRYSTALLINE_CAVES
+        );
+    }
+}
+```
+
+**Fabric モジュール（Yarn mapping対応）：**
+```java
+// FabricCrystallineCavesRegion.java
+public class FabricCrystallineCavesRegion extends Region {
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public FabricCrystallineCavesRegion(Identifier name, int weight) {
+        super(name, RegionType.OVERWORLD, weight);
+    }
+
+    @Override
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public void addBiomes(Registry registry, Consumer mapper) {
+        this.addBiome(mapper,
+            new MultiNoiseUtil.NoiseHypercube(
+                MultiNoiseUtil.ParameterRange.of(-1.0f, 1.0f),  // temperature
+                MultiNoiseUtil.ParameterRange.of(-1.0f, 1.0f),  // humidity
+                MultiNoiseUtil.ParameterRange.of(-1.0f, 1.0f),  // continentalness
+                MultiNoiseUtil.ParameterRange.of(-1.0f, 1.0f),  // erosion
+                MultiNoiseUtil.ParameterRange.of(0.2f, 1.0f),   // depth
+                MultiNoiseUtil.ParameterRange.of(-1.0f, 1.0f),  // weirdness
+                0L                                               // offset (long!)
+            ),
+            CRYSTALLINE_CAVES
+        );
+    }
+}
+```
+
+##### 3. Yarn/Mojang Mapping差異の解決
+
+**主な差異：**
+- `ResourceLocation` (Mojang) ↔ `Identifier` (Yarn)
+- `Climate.ParameterPoint` (Mojang) ↔ `MultiNoiseUtil.NoiseHypercube` (Yarn)
+- `Climate.Parameter.span()` (Mojang) ↔ `MultiNoiseUtil.ParameterRange.of()` (Yarn)
+- offset型: `float` (Mojang) ↔ `long` (Yarn)
+
+**解決策：**
+- プラットフォーム別Regionクラスの作成
+- `@SuppressWarnings`で型消去を許容
+- 各プラットフォームのAPI仕様に完全準拠
+
+##### 4. 依存関係設定
+
+**gradle.properties：**
+```properties
+terrablender_version=4.1.0.3
+```
+
+**common/build.gradle.kts：**
+```kotlin
+dependencies {
+    compileOnly("com.github.glitchfiend:TerraBlender-common:${minecraft_version}-${terrablender_version}")
+}
+```
+
+**fabric/build.gradle.kts：**
+```kotlin
+dependencies {
+    modImplementation("com.github.glitchfiend:TerraBlender-fabric:${minecraft_version}-${terrablender_version}")
+}
+```
+
+**neoforge/build.gradle.kts：**
+```kotlin
+dependencies {
+    implementation("com.github.glitchfiend:TerraBlender-neoforge:${minecraft_version}-${terrablender_version}")
+}
+```
+
+##### 5. エントリーポイント設定
+
+**Fabric（fabric.mod.json）：**
+```json
+"entrypoints": {
+  "terrablender": [
+    "com.example.worldgentest.FabricTerraBlenderInit"
+  ]
+}
+```
+
+**NeoForge（FMLCommonSetupEvent）：**
+```java
+public static void register(IEventBus modEventBus) {
+    modEventBus.addListener(NeoForgeTerraBlenderInit::commonSetup);
+}
+
+private static void commonSetup(FMLCommonSetupEvent event) {
+    event.enqueueWork(() -> {
+        Regions.register(new CrystallineCavesRegion(...));
+    });
+}
+```
+
+#### 技術的学習ポイント
+- **バイオーム統合の2つのアプローチ**: データパック方式 vs ライブラリ方式
+- **保守性の重要性**: 大規模JSONファイルの管理コストは非常に高い
+- **業界標準の活用**: 実績あるライブラリの採用でトラブル回避
+- **プラットフォーム差異の対処**: Yarn/Mojang mappingの違いを適切に処理
+- **型システムの理解**: 型消去とジェネリクスの適切な使用
+
+#### 実装規模
+- **削除ファイル**: 3.3MBの巨大JSONファイル + カスタムワールドプリセット設定
+- **追加コード**: 約200行（3つのRegionクラス + 2つの初期化クラス）
+- **依存関係**: Terrablender 4.1.0.3
+- **プラットフォーム**: Fabric/NeoForge両対応
+- **動作**: バニラ「Default」ワールドタイプで自動統合、`/locate biome`で確認可能
+
+#### ベストプラクティス
+
+1. **バイオーム追加にはTerrablenderを使用**
+   - カスタムワールドプリセットは保守性が低い
+   - 巨大なパラメータファイルは避ける
+   - ライブラリによる自動統合が最適
+
+2. **プラットフォーム別実装の適切な分離**
+   - commonモジュールにMojang mapping版を配置
+   - Fabricモジュールに Yarn mapping版を配置
+   - NeoForgeはcommon版を再利用
+
+3. **mapping差異の確実な対処**
+   - クラス名、メソッド名の違いを正確に把握
+   - 型の違い（特にプリミティブ型）に注意
+   - `@SuppressWarnings`を適切に使用
+
+4. **段階的なトラブルシューティング**
+   - まずビルドエラーを解決
+   - 次にゲーム起動を確認
+   - 最後に機能動作をテスト
+
+#### トラブルシューティングプロセス
+
+1. **バイオームが見つからない** → Terrablender登録の確認
+2. **ビルドエラー** → mapping差異の確認
+3. **クラッシュ** → 不要なカスタムワールドプリセットファイルの削除
+4. **`/locate biome`で確認** → 地下バイオームは地上から探索が必要

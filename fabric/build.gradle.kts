@@ -9,6 +9,9 @@ dependencies {
     modImplementation("net.fabricmc:fabric-loader:${project.property("loader_version")}")
     modApi("net.fabricmc.fabric-api:fabric-api:${project.property("fabric_version")}")
 
+    // TerraBlender
+    modImplementation("com.github.glitchfiend:TerraBlender-fabric:${project.property("minecraft_version")}-${project.property("terrablender_version")}")
+
     implementation(project(":common"))
 }
 

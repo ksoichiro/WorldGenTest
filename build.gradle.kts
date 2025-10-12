@@ -25,6 +25,7 @@ allprojects {
         maven("https://maven.minecraftforge.net/")
         maven("https://maven.fabricmc.net/")
         maven("https://maven.parchmentmc.org/")
+        maven("https://repo.spongepowered.org/repository/maven-public/") // TerraBlender
         mavenCentral()
     }
 
