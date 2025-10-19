@@ -1,0 +1,191 @@
+# Feature Specification: カスタムディメンション追加
+
+**Feature Branch**: `003-mod`
+**Created**: 2025-10-19
+**Status**: Ready for Planning
+**Input**: User description: "ディメンションを追加してください。ポータルはネザーポータルのようなデザインで、使用するブロックや着火するためのアイテムは、少なくともどちらかをこのmod独自のアイテムにしてください。ディメンション内のバイオームはすべてカスタムのバイオームからなるものとします。"
+
+## Execution Flow (main)
+```
+1. Parse user description from Input
+   → Feature: Add custom dimension with portal system
+2. Extract key concepts from description
+   → Actors: Players
+   → Actions: Build portal frame, activate portal, travel between dimensions
+   → Data: Portal structure, dimension data, custom biomes
+   → Constraints: Portal must use Nether portal-like design, at least one custom item required, all biomes must be custom
+3. For each unclear aspect:
+   → ✓ CLARIFIED: Portal frame size - minimum 2x3 (inner space), similar to Nether portal
+   → ✓ CLARIFIED: Death respawn - same as Overworld, last set spawn point (bed allowed in custom dimension)
+   → ✓ CLARIFIED: Portal linking - coordinate-based 1:4 scaling (custom dimension 1 : Overworld 4)
+   → ✓ CLARIFIED: Day/night cycle - none, always daytime with purple-tinted sky
+   → ✓ CLARIFIED: Custom biomes - 4 types (Plains, Forest, Desert, River) composed of custom blocks
+   → ✓ CLARIFIED: Custom blocks - grass, dirt, wood, sand variants; water is vanilla but light cyan color
+4. Fill User Scenarios & Testing section
+   → Primary flow: Player builds portal frame → activates with custom item → enters new dimension
+5. Generate Functional Requirements
+   → Each requirement defined below
+6. Identify Key Entities
+   → Portal Block, Activation Item, Custom Dimension, Custom Biomes
+7. Run Review Checklist
+   → WARN "Spec has uncertainties - see clarification markers"
+8. Return: SUCCESS (spec ready for planning after clarifications)
+```
+
+---
+
+## ⚡ Quick Guidelines
+- ✅ Focus on WHAT users need and WHY
+- ❌ Avoid HOW to implement (no tech stack, APIs, code structure)
+- 👥 Written for business stakeholders, not developers
+
+---
+
+## User Scenarios & Testing
+
+### Primary User Story
+プレイヤーは、既存のMODアイテム（クリスタルブロックとクリスタルの欠片）を使用して、新しいディメンションへアクセスするためのポータルを作成できる。ポータルはネザーポータルと同様の矩形フレーム構造をクリスタルブロックで構築し、クリスタルの欠片で着火・起動される。ポータルを通過することで、完全にカスタムバイオームで構成された新しいディメンションに移動できる。
+
+### Acceptance Scenarios
+
+1. **Given** プレイヤーがサバイバルモードでクリスタルブロックを入手している、**When** プレイヤーがネザーポータルのような矩形フレームをクリスタルブロックで構築する、**Then** ポータルフレームが完成状態として認識される
+
+2. **Given** ポータルフレームが完成している、**When** プレイヤーがクリスタルの欠片をフレームに使用する、**Then** ポータルが起動し、内部に渦のようなポータルブロックが生成される
+
+3. **Given** ポータルが起動している、**When** プレイヤーがポータル内に4秒間留まる、**Then** カスタムディメンションへテレポートされる
+
+4. **Given** プレイヤーがカスタムディメンション内にいる、**When** プレイヤーが同じポータルに再び入る、**Then** オーバーワールドの元の位置（またはリンクされた位置）に戻る
+
+5. **Given** プレイヤーがカスタムディメンションを探索している、**When** プレイヤーが移動する、**Then** 複数の異なるカスタムバイオームを発見できる
+
+6. **Given** ポータルが起動している、**When** プレイヤーまたは他のエンティティがポータルフレームの一部を破壊する、**Then** ポータルが非アクティブ化され、ポータルブロックが消失する
+
+7. **Given** プレイヤーがカスタムディメンション内でベッドを配置している、**When** プレイヤーがベッドで寝る、**Then** カスタムディメンション内にリスポーン地点が設定される
+
+8. **Given** プレイヤーがカスタムディメンション内でリスポーン地点を設定している、**When** プレイヤーがカスタムディメンションで死亡する、**Then** カスタムディメンション内の設定されたリスポーン地点にリスポーンする
+
+9. **Given** プレイヤーがカスタムディメンションに入っている、**When** プレイヤーが周囲を観察する、**Then** 常に昼間の明るさであり、空が紫がかった色調で表示される
+
+10. **Given** プレイヤーがカスタムディメンションを探索している、**When** プレイヤーが異なるバイオームを訪れる、**Then** クリスタルの草原、クリスタルの森林、クリスタルの砂漠、クリスタルの川の4種類のバイオームが存在することを確認できる
+
+11. **Given** プレイヤーがクリスタルの川バイオームを訪れている、**When** プレイヤーが水ブロックを観察する、**Then** 水色っぽい薄い色調の水が表示される
+
+### Edge Cases
+
+- ポータルフレームの最小サイズは高さ3幅2の内部空間（ネザーポータルと同様）。最大サイズは内部空間21x21
+- 不完全なフレーム（角が欠けている、サイズが不正）で着火アイテムを使用した場合はどうなるか？（動作なし、またはエラーメッセージ表示が望ましい）
+- カスタムディメンションでプレイヤーが死亡した場合、最後に設定したリスポーン地点（ベッド、リスポーンアンカー等）にリスポーンする。リスポーン地点が設定されていない場合はワールドスポーン地点にリスポーン
+- ポータル内に複数のエンティティが同時に入った場合、すべて正しくテレポートされるか？（期待：すべてテレポートされる）
+- カスタムディメンションに複数のポータルが存在する場合、座標ベース（1:4スケール）で対応するポータルとリンクされる。オーバーワールドの4マス内に複数ポータルがある場合、挙動は不安定になる可能性がある
+- ポータルを通過せずにコマンド（/execute in）でディメンションに入った場合、帰還方法は？（手動でポータルを探すか、再度コマンド使用）
+- マルチプレイヤー環境では、バニラのネザーポータルと同様に、任意のプレイヤーがポータルフレームブロックを破壊可能。ポータルフレームが破壊されるとポータルは非アクティブ化される。破壊保護が必要な場合は、クレームシステムや保護MODに委ねる
+
+## Requirements
+
+### Functional Requirements
+
+- **FR-001**: システムは、プレイヤーがクリスタルブロックを矩形フレーム状に配置できなければならない
+- **FR-002**: システムは、完成したポータルフレームをクリスタルの欠片で起動できなければならない
+- **FR-003**: システムは、起動されたポータルフレームの内部にポータルブロックを生成しなければならない
+- **FR-004**: システムは、プレイヤーがポータルブロック内に4秒間留まった場合、カスタムディメンションへテレポートさせなければならない
+- **FR-005**: システムは、カスタムディメンション内に完全にカスタムバイオームのみを生成しなければならない
+- **FR-006**: システムは、カスタムディメンション内のポータルから、オーバーワールドの対応するポータルへの帰還を可能にしなければならない
+- **FR-007**: システムは、ポータルフレームの一部が破壊された場合、ポータルを非アクティブ化しなければならない
+- **FR-008**: システムは、ポータルの起動状態を視覚的に示さなければならない（例：パーティクル効果、サウンド効果）
+- **FR-009**: システムは、カスタムディメンション内で昼夜サイクルを持たず、常に昼間の明るさを維持しなければならない。空の色は紫がかった色調で表示されること
+- **FR-010**: システムは、ポータルフレームのサイズを最小で内部空間が高さ3幅2となるサイズに設定し、最大サイズを内部空間21x21に制限しなければならない
+- **FR-011**: システムは、カスタムディメンション内に4種類のカスタムバイオーム（クリスタルの草原、クリスタルの森林、クリスタルの砂漠、クリスタルの川）を生成しなければならない。各バイオームは原則としてカスタムブロックのみで構成され、オーバーワールドの対応バイオームと類似した構造を持つこと
+- **FR-014**: システムは、カスタムディメンションのバイオーム構成に必要な最低限のカスタムブロックを提供しなければならない。具体的には、草ブロック、土ブロック、木材（原木、苗木、材木など）、砂ブロックのカスタム版を含むこと
+- **FR-015**: システムは、カスタムディメンションの河川バイオームに水ブロックを生成しなければならない。水はバニラの水ブロックを使用するが、水の色は水色っぽい薄い色調で表示されること
+- **FR-012**: システムは、プレイヤーがカスタムディメンションで死亡した場合、最後に設定したリスポーン地点（ベッド、リスポーンアンカー等）にリスポーンさせなければならない。カスタムディメンション内でもベッドやリスポーンアンカーでリスポーン地点を設定可能であること
+- **FR-013**: システムは、カスタムディメンションとオーバーワールド間のポータルリンクを座標ベース（1:4スケール）で計算しなければならない。カスタムディメンションの1ブロック移動はオーバーワールドの4ブロック移動に相当する
+
+### Non-Functional Requirements
+
+- **NFR-001**: ポータルのテレポート処理は、プレイヤーのゲームプレイを著しく中断しない程度に高速でなければならない
+- **NFR-002**: カスタムディメンションのチャンク生成速度は、バニラのオーバーワールドと同等のパフォーマンスを維持しなければならない。プレイヤーの探索時に顕著な遅延やフリーズが発生してはならない
+- **NFR-003**: ポータルシステムは、マルチプレイヤー環境で複数のプレイヤーが同時に使用しても正しく動作しなければならない
+- **NFR-004**: カスタムディメンションは、ワールドセーブ時に正しく保存され、ロード時に復元されなければならない
+- **NFR-005**: システムは、エラーや異常発生時にのみログ出力を行わなければならない。正常動作時のログ出力は不要。ログにはエラー内容、発生箇所、関連するゲーム状態（座標、ディメンション等）を含むこと
+
+### Key Entities
+
+- **Portal Frame Block**: ポータルフレームを構成するブロック。クリスタルブロックを使用して矩形フレーム構造の辺を形成する
+- **Portal Activation Item**: ポータルを起動するためのアイテム。クリスタルの欠片をフレームに対して使用することでポータルをアクティブ化する
+- **Portal Block**: 起動されたポータルフレーム内に生成される透過ブロック。エンティティがこのブロック内に留まることでディメンション移動が発生する
+- **Custom Dimension**: MODが追加する新しいディメンション。常に昼間、紫がかった空、カスタムバイオームのみで構成される。座標スケールは1:4（ディメンション:オーバーワールド）
+- **Custom Biomes**: カスタムディメンション内に生成される4種類の独自のバイオーム
+  - **クリスタルの草原**: オーバーワールドの平原に相当。カスタム草ブロック、カスタム土ブロックで構成
+  - **クリスタルの森林**: オーバーワールドの森林に相当。カスタム原木、カスタム苗木、カスタム材木などの樹木要素を含む
+  - **クリスタルの砂漠**: オーバーワールドの砂漠に相当。カスタム砂ブロックで構成
+  - **クリスタルの川**: オーバーワールドの河川に相当。バニラの水ブロックを使用（水色っぽい薄い色調）
+- **Custom Blocks**: カスタムディメンションを構成するMOD独自のブロック群
+  - **カスタム草ブロック**: オーバーワールドの草ブロックに相当
+  - **カスタム土ブロック**: オーバーワールドの土ブロックに相当
+  - **カスタム木材群**: 原木、苗木、材木などの樹木関連ブロック
+  - **カスタム砂ブロック**: オーバーワールドの砂ブロックに相当
+
+---
+
+## Clarifications
+
+### Session 2025-10-19
+- Q: マルチプレイヤー環境で、他プレイヤーのポータルフレームを破壊した場合の挙動はどうすべきですか？ → A: バニラと同様、誰でも破壊可能（ポータル非アクティブ化）
+- Q: ポータル通過時のテレポート待機時間（プレイヤーがポータル内に留まる必要がある時間）の具体的な秒数はどうすべきですか？ → A: 4秒（バニラネザーポータルと同じ）
+- Q: カスタムディメンションのチャンク生成速度（パフォーマンス目標）をどう定義すべきですか？ → A: バニラのオーバーワールドと同等の生成速度を目標とする
+- Q: デバッグとトラブルシューティングのため、どのレベルのログ出力を要求すべきですか？ → A: エラーのみログ（失敗時のみログ出力、正常動作はログなし）
+- Q: ポータルフレームの最大サイズの具体的な数値はどうすべきですか？ → A: 内部空間21x21（標準的な大型ポータル）
+- Q: ポータルを起動（着火）するために使用するアイテムは何にすべきですか？ → A: 既存アイテム（クリスタルの欠片を着火アイテムとして使用）
+- Q: ポータルフレームを構成するブロックは何にすべきですか？ → A: 既存ブロック（クリスタルブロックをポータルフレームとして使用）
+
+---
+
+## Review & Acceptance Checklist
+
+### Content Quality
+- [x] No implementation details (languages, frameworks, APIs)
+- [x] Focused on user value and business needs
+- [x] Written for non-technical stakeholders
+- [x] All mandatory sections completed
+
+### Requirement Completeness
+- [x] No [NEEDS CLARIFICATION] markers remain (all items clarified)
+- [x] Requirements are testable and unambiguous
+- [x] Success criteria are measurable
+- [x] Scope is clearly bounded
+- [x] Dependencies and assumptions identified
+
+---
+
+## Execution Status
+
+- [x] User description parsed
+- [x] Key concepts extracted
+- [x] Ambiguities marked and all clarified
+- [x] User scenarios defined
+- [x] Requirements generated (15 functional requirements)
+- [x] Entities identified (portal, dimension, 4 biomes, custom blocks)
+- [x] All requirements clarified (portal, respawn, coordinates, time, biomes, blocks)
+- [x] Review checklist passed (specification complete)
+
+---
+
+## Dependencies and Assumptions
+
+### Dependencies
+- 既存のMODブロック（クリスタルブロック）が実装済みであること（ポータルフレーム用）
+- 既存のMODアイテム（クリスタルの欠片）が実装済みであること（ポータル着火用）
+- 既存のバイオーム生成システム（Terrablenderなど）が利用可能であること
+
+### Assumptions
+- ポータルの動作は基本的にバニラのネザーポータルに類似する
+- ポータルフレームは矩形（長方形または正方形）であり、最小で内部空間が高さ3幅2、最大21x21のサイズ範囲
+- カスタムディメンションは、オーバーワールドと同様の基本的なゲームメカニクス（重力、ブロック配置、インベントリなど）を持つ
+- ポータルリンクシステムは、座標を1:4でスケーリングする方式（カスタムディメンション1ブロック = オーバーワールド4ブロック）
+- オーバーワールドの4マス内に複数のポータルが配置された場合、カスタムディメンションの対応するポータルとの混線が発生し、挙動が不安定になることを許容する
+- カスタムディメンションは常に昼間（固定時間）、紫がかった空の色調を持つ
+- 4種類のカスタムバイオーム（草原、森林、砂漠、川）は、オーバーワールドの対応バイオームと構造的に類似しているが、すべてカスタムブロックで構成される
+- カスタムブロックは最低限として草、土、木材系（原木、苗木、材木）、砂を含む
+- 河川の水はバニラの水ブロックを使用するが、バイオーム固有の水色（水色っぽい薄い色）で表示される
+- 特殊なMobや構造物については、初期実装では含まず、将来の拡張として追加可能
+- マルチプレイヤー環境では、ポータルフレームの破壊権限はバニラと同様に制限なし（誰でも破壊可能）。特定プレイヤーによる保護機能は提供せず、サードパーティの保護MODに委ねる
