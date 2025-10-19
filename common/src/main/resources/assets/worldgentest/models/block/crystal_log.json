@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "worldgentest:block/crystal_log_top",
+    "side": "worldgentest:block/crystal_log"
+  }
+}

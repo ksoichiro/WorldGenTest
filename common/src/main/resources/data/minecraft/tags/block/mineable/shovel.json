@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "worldgentest:crystal_grass_block",
+    "worldgentest:crystal_dirt",
+    "worldgentest:crystal_sand"
+  ]
+}

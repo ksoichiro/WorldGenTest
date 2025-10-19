@@ -58,44 +58,44 @@ description: "Implementation tasks for custom dimension feature"
 
 ### Block Resources (Textures, Models, Loot Tables)
 
-- [ ] T014 [P] Create crystal grass block textures in `common/src/main/resources/assets/worldgentest/textures/block/` (crystal_grass_block_top.png, crystal_grass_block_side.png, based on vanilla with color adjustment)
-- [ ] T015 [P] Create crystal dirt texture in `common/src/main/resources/assets/worldgentest/textures/block/crystal_dirt.png`
-- [ ] T016 [P] Create crystal log textures in `common/src/main/resources/assets/worldgentest/textures/block/` (crystal_log.png, crystal_log_top.png)
-- [ ] T017 [P] Create crystal sand texture in `common/src/main/resources/assets/worldgentest/textures/block/crystal_sand.png`
-- [ ] T018 [P] Create blockstate JSON for crystal grass block in `common/src/main/resources/assets/worldgentest/blockstates/crystal_grass_block.json`
-- [ ] T019 [P] Create blockstate JSON for crystal dirt in `common/src/main/resources/assets/worldgentest/blockstates/crystal_dirt.json`
-- [ ] T020 [P] Create blockstate JSON for crystal log in `common/src/main/resources/assets/worldgentest/blockstates/crystal_log.json`
-- [ ] T021 [P] Create blockstate JSON for crystal sand in `common/src/main/resources/assets/worldgentest/blockstates/crystal_sand.json`
-- [ ] T022 [P] Create block model JSON for crystal grass block in `common/src/main/resources/assets/worldgentest/models/block/crystal_grass_block.json`
-- [ ] T023 [P] Create block model JSON for crystal dirt in `common/src/main/resources/assets/worldgentest/models/block/crystal_dirt.json`
-- [ ] T024 [P] Create block model JSON for crystal log in `common/src/main/resources/assets/worldgentest/models/block/crystal_log.json`
-- [ ] T025 [P] Create block model JSON for crystal sand in `common/src/main/resources/assets/worldgentest/models/block/crystal_sand.json`
-- [ ] T026 [P] Create item model JSON for crystal grass block in `common/src/main/resources/assets/worldgentest/models/item/crystal_grass_block.json`
-- [ ] T027 [P] Create item model JSON for crystal dirt in `common/src/main/resources/assets/worldgentest/models/item/crystal_dirt.json`
-- [ ] T028 [P] Create item model JSON for crystal log in `common/src/main/resources/assets/worldgentest/models/item/crystal_log.json`
-- [ ] T029 [P] Create item model JSON for crystal sand in `common/src/main/resources/assets/worldgentest/models/item/crystal_sand.json`
-- [ ] T030 [P] Create loot table for crystal grass block in `common/src/main/resources/data/worldgentest/loot_table/block/crystal_grass_block.json` (drops self)
-- [ ] T031 [P] Create loot table for crystal dirt in `common/src/main/resources/data/worldgentest/loot_table/block/crystal_dirt.json`
-- [ ] T032 [P] Create loot table for crystal log in `common/src/main/resources/data/worldgentest/loot_table/block/crystal_log.json`
-- [ ] T033 [P] Create loot table for crystal sand in `common/src/main/resources/data/worldgentest/loot_table/block/crystal_sand.json`
-- [ ] T034 [P] Add custom blocks to block tags in `common/src/main/resources/data/minecraft/tags/block/mineable/shovel.json` (grass, dirt, sand)
-- [ ] T035 [P] Add crystal log to block tags in `common/src/main/resources/data/minecraft/tags/block/mineable/axe.json`
+- [X] T014 [P] Create crystal grass block textures in `common/src/main/resources/assets/worldgentest/textures/block/` (crystal_grass_block_top.png, crystal_grass_block_side.png, based on vanilla with color adjustment)
+- [X] T015 [P] Create crystal dirt texture in `common/src/main/resources/assets/worldgentest/textures/block/crystal_dirt.png`
+- [X] T016 [P] Create crystal log textures in `common/src/main/resources/assets/worldgentest/textures/block/` (crystal_log.png, crystal_log_top.png)
+- [X] T017 [P] Create crystal sand texture in `common/src/main/resources/assets/worldgentest/textures/block/crystal_sand.png`
+- [X] T018 [P] Create blockstate JSON for crystal grass block in `common/src/main/resources/assets/worldgentest/blockstates/crystal_grass_block.json`
+- [X] T019 [P] Create blockstate JSON for crystal dirt in `common/src/main/resources/assets/worldgentest/blockstates/crystal_dirt.json`
+- [X] T020 [P] Create blockstate JSON for crystal log in `common/src/main/resources/assets/worldgentest/blockstates/crystal_log.json`
+- [X] T021 [P] Create blockstate JSON for crystal sand in `common/src/main/resources/assets/worldgentest/blockstates/crystal_sand.json`
+- [X] T022 [P] Create block model JSON for crystal grass block in `common/src/main/resources/assets/worldgentest/models/block/crystal_grass_block.json`
+- [X] T023 [P] Create block model JSON for crystal dirt in `common/src/main/resources/assets/worldgentest/models/block/crystal_dirt.json`
+- [X] T024 [P] Create block model JSON for crystal log in `common/src/main/resources/assets/worldgentest/models/block/crystal_log.json`
+- [X] T025 [P] Create block model JSON for crystal sand in `common/src/main/resources/assets/worldgentest/models/block/crystal_sand.json`
+- [X] T026 [P] Create item model JSON for crystal grass block in `common/src/main/resources/assets/worldgentest/models/item/crystal_grass_block.json`
+- [X] T027 [P] Create item model JSON for crystal dirt in `common/src/main/resources/assets/worldgentest/models/item/crystal_dirt.json`
+- [X] T028 [P] Create item model JSON for crystal log in `common/src/main/resources/assets/worldgentest/models/item/crystal_log.json`
+- [X] T029 [P] Create item model JSON for crystal sand in `common/src/main/resources/assets/worldgentest/models/item/crystal_sand.json`
+- [X] T030 [P] Create loot table for crystal grass block in `common/src/main/resources/data/worldgentest/loot_table/block/crystal_grass_block.json` (drops self)
+- [X] T031 [P] Create loot table for crystal dirt in `common/src/main/resources/data/worldgentest/loot_table/block/crystal_dirt.json`
+- [X] T032 [P] Create loot table for crystal log in `common/src/main/resources/data/worldgentest/loot_table/block/crystal_log.json`
+- [X] T033 [P] Create loot table for crystal sand in `common/src/main/resources/data/worldgentest/loot_table/block/crystal_sand.json`
+- [X] T034 [P] Add custom blocks to block tags in `common/src/main/resources/data/minecraft/tags/block/mineable/shovel.json` (grass, dirt, sand)
+- [X] T035 [P] Add crystal log to block tags in `common/src/main/resources/data/minecraft/tags/block/mineable/axe.json`
 
 ### Custom Biomes (Terrablender Integration)
 
-- [ ] T036 [P] Create Crystal Plains biome JSON in `common/src/main/resources/data/worldgentest/worldgen/biome/crystal_plains.json` (temperature=0.0, downfall=0.4, surface=CRYSTAL_GRASS_BLOCK, sky_color=0x8E44AD)
-- [ ] T037 [P] Create Crystal Forest biome JSON in `common/src/main/resources/data/worldgentest/worldgen/biome/crystal_forest.json` (temperature=0.0, downfall=0.8, surface=CRYSTAL_GRASS_BLOCK, sky_color=0x8E44AD)
-- [ ] T038 [P] Create Crystal Desert biome JSON in `common/src/main/resources/data/worldgentest/worldgen/biome/crystal_desert.json` (temperature=2.0, downfall=0.0, surface=CRYSTAL_SAND, sky_color=0x8E44AD)
-- [ ] T039 [P] Create Crystal River biome JSON in `common/src/main/resources/data/worldgentest/worldgen/biome/crystal_river.json` (temperature=0.0, downfall=0.5, water_color=0x3FA3D3, sky_color=0x8E44AD)
-- [ ] T040 Create CrystalDimensionRegion class (NeoForge, Mojang mapping) in `common/src/main/java/com/example/worldgentest/biome/CrystalDimensionRegion.java` (addBiomes with weight: Plains=40, Forest=30, Desert=20, River=10)
-- [ ] T041 Create FabricCrystalDimensionRegion class (Fabric, Yarn mapping) in `fabric/src/main/java/com/example/worldgentest/biome/FabricCrystalDimensionRegion.java` (MultiNoiseUtil API)
-- [ ] T042 Create NeoForge Terrablender initialization in `neoforge/src/main/java/com/example/worldgentest/biome/NeoForgeCrystalDimensionRegion.java` (FMLCommonSetupEvent registration)
-- [ ] T043 Add Terrablender entrypoint in `fabric/src/main/resources/fabric.mod.json` ("terrablender": ["com.example.worldgentest.FabricTerraBlenderInit"])
+- [X] T036 [P] Create Crystal Plains biome JSON in `common/src/main/resources/data/worldgentest/worldgen/biome/crystal_plains.json` (temperature=0.0, downfall=0.4, surface=CRYSTAL_GRASS_BLOCK, sky_color=0x8E44AD)
+- [X] T037 [P] Create Crystal Forest biome JSON in `common/src/main/resources/data/worldgentest/worldgen/biome/crystal_forest.json` (temperature=0.0, downfall=0.8, surface=CRYSTAL_GRASS_BLOCK, sky_color=0x8E44AD)
+- [X] T038 [P] Create Crystal Desert biome JSON in `common/src/main/resources/data/worldgentest/worldgen/biome/crystal_desert.json` (temperature=2.0, downfall=0.0, surface=CRYSTAL_SAND, sky_color=0x8E44AD)
+- [X] T039 [P] Create Crystal River biome JSON in `common/src/main/resources/data/worldgentest/worldgen/biome/crystal_river.json` (temperature=0.0, downfall=0.5, water_color=0x3FA3D3, sky_color=0x8E44AD)
+- [X] T040 Update Level Stem JSON with multi_noise biome source in `common/src/main/resources/data/worldgentest/dimension/crystal_dimension.json` (addBiomes with weight: Plains=40, Forest=30, Desert=20, River=10)
+- [X] T041 N/A - Biome integration via Level Stem JSON (multi_noise), not Terrablender Region
+- [X] T042 N/A - Biome integration via Level Stem JSON (multi_noise), not Terrablender initialization
+- [X] T043 N/A - Biome integration via Level Stem JSON (multi_noise), not Terrablender entrypoint
 
 ### Localization
 
-- [ ] T044 [P] Add English translations for custom blocks in `common/src/main/resources/assets/worldgentest/lang/en_us.json`
-- [ ] T045 [P] Add Japanese translations for custom blocks in `common/src/main/resources/assets/worldgentest/lang/ja_jp.json`
+- [X] T044 [P] Add English translations for custom blocks in `common/src/main/resources/assets/worldgentest/lang/en_us.json`
+- [X] T045 [P] Add Japanese translations for custom blocks in `common/src/main/resources/assets/worldgentest/lang/ja_jp.json`
 
 **Checkpoint**: Foundation ready - dimension exists, custom blocks available, biomes integrated. Portal system can now be implemented.
 

@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "worldgentest:block/crystal_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "worldgentest:block/crystal_log"
+    },
+    "axis=z": {
+      "model": "worldgentest:block/crystal_log_horizontal",
+      "x": 90
+    }
+  }
+}

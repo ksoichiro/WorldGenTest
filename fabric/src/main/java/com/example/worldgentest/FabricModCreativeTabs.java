@@ -26,6 +26,12 @@ public class FabricModCreativeTabs {
                 entries.add(FabricModItems.CRYSTAL_STALACTITE_ITEM);
                 entries.add(FabricModItems.GLOWING_MOSS_ITEM);
 
+                // カスタムディメンション用ブロック
+                entries.add(FabricModItems.CRYSTAL_GRASS_BLOCK_ITEM);
+                entries.add(FabricModItems.CRYSTAL_DIRT_ITEM);
+                entries.add(FabricModItems.CRYSTAL_LOG_ITEM);
+                entries.add(FabricModItems.CRYSTAL_SAND_ITEM);
+
                 // アイテム類
                 entries.add(FabricModItems.CRYSTAL_SHARD);
 

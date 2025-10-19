@@ -28,6 +28,12 @@ public class ModCreativeTabs {
                 output.accept(ModBlocks.CRYSTAL_STALACTITE_ITEM.get());
                 output.accept(ModBlocks.GLOWING_MOSS_ITEM.get());
 
+                // カスタムディメンション用ブロック
+                output.accept(ModBlocks.CRYSTAL_GRASS_BLOCK_ITEM.get());
+                output.accept(ModBlocks.CRYSTAL_DIRT_ITEM.get());
+                output.accept(ModBlocks.CRYSTAL_LOG_ITEM.get());
+                output.accept(ModBlocks.CRYSTAL_SAND_ITEM.get());
+
                 // アイテム類
                 output.accept(ModBlocks.CRYSTAL_SHARD.get());
 

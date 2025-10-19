@@ -1165,3 +1165,146 @@ private static void commonSetup(FMLCommonSetupEvent event) {
 2. **ビルドエラー** → mapping差異の確認
 3. **クラッシュ** → 不要なカスタムワールドプリセットファイルの削除
 4. **`/locate biome`で確認** → 地下バイオームは地上から探索が必要
+
+### カスタムディメンション基盤実装（2025年10月完了）
+
+#### 問題発見
+- **ブロックが自身をドロップしない**: Phase 2実装でloot tableが機能していない
+- **ディレクトリ構造の不一致**: 新規loot tableを`loot_table/block/`に作成したが、既存は`loot_table/blocks/`
+
+#### 学習ポイント
+
+##### 1. Minecraft 1.21.1のloot tableディレクトリ構造
+
+**正しいパス** (プロジェクト固有):
+```
+data/worldgentest/loot_table/blocks/  # 複数形（既存の構造）
+```
+
+**間違ったパス**:
+```
+data/worldgentest/loot_table/block/   # 単数形
+```
+
+**重要な発見**:
+- Minecraft 1.21.1の標準は単数形(`loot_table`)だが、プロジェクト内では`blocks`ディレクトリを使用
+- 既存コードとの一貫性を保つことが最優先
+- 新規ファイル作成時は必ず既存の構造を確認する
+
+##### 2. ブロック登録とloot tableの関係
+
+**動作するパターン**:
+```java
+// Fabric/NeoForgeでの直接登録
+public static final Block CRYSTAL_DIRT = Registry.register(
+    Registries.BLOCK,
+    Identifier.of(MOD_ID, "crystal_dirt"),
+    new Block(AbstractBlock.Settings.create()
+        .strength(0.5F)
+        .sounds(BlockSoundGroup.GRAVEL))
+);
+```
+
+**対応するloot table**:
+```
+data/worldgentest/loot_table/blocks/crystal_dirt.json
+```
+
+**重要**: ブロック登録ID (`crystal_dirt`) とloot tableファイル名が完全一致する必要がある
+
+##### 3. Architecturyでのmapping問題回避
+
+**試みた方法**: commonモジュールのブロッククラスを使用
+```java
+// ❌ コンパイルエラー発生
+new com.example.worldgentest.block.CrystalDirtBlock()
+```
+
+**問題**:
+- commonモジュール: Mojang mapping (`net.minecraft.world.level.block.Block`)
+- Fabric: Yarn mapping (`net.minecraft.block.Block`)
+- 型の不一致によりコンパイルエラー
+
+**解決策**: プラットフォーム側で直接ブロックを登録
+```java
+// ✅ 正常動作
+new Block(AbstractBlock.Settings.create()...)  // Fabric
+new Block(BlockBehaviour.Properties.of()...)   // NeoForge
+```
+
+##### 4. Phase 2完了範囲の明確化
+
+**✅ 実装完了**:
+- カスタムブロック4種（grass, dirt, log, sand）
+- ブロックテクスチャ（紫がかった色調、Pythonスクリプトで生成）
+- Blockstate & Models (block/item)
+- Loot tables（正しいディレクトリ構造）
+- Block tags (mineable/shovel, mineable/axe)
+- 4つのカスタムバイオームJSON
+- multi_noise biome source統合
+- ディメンションタイプJSON（fixed_time=6000）
+- 多言語対応（英語・日本語）
+- クリエイティブタブ統合
+
+**⚠️ 既知の制限事項（後続Phase）**:
+- **Surface ruleが未実装**: バイオーム内でカスタムブロックが地表に生成されない
+  - 現状: バニラのsurface rule使用（stone, grass等が生成される）
+  - 必要: `noise_settings/crystal_dimension.json`でsurface rule定義
+  - Phase 7以降で実装予定
+- **Tree featureが未実装**: Crystal Forestに木が生えない
+  - タスクT081-T083で実装予定
+  - configured_feature + placed_feature必要
+
+##### 5. 実装チェックリスト（更新版）
+
+**新規ブロック追加時の手順**:
+1. ✅ commonモジュールでブロッククラス作成（CrystalGrassBlock.java等）
+2. ✅ Fabric/NeoForgeでブロック登録
+3. ✅ **Loot table作成** (`loot_table/blocks/`)
+4. ✅ Blockstate JSON作成
+5. ✅ Block model JSON作成
+6. ✅ Item model JSON作成
+7. ✅ テクスチャ作成
+8. ✅ Block tags追加（mineable/*, needs_*_tool）
+9. ✅ **クリエイティブタブに追加**（両プラットフォーム）
+10. ✅ 多言語ファイル更新
+11. ✅ ビルド確認
+12. ✅ **実際にゲームで動作確認**（配置・破壊・ドロップ）
+
+**最重要**: ステップ3と9は見落としやすいため、必ずチェックリストに含める
+
+#### 実装規模
+- **新規ブロック**: 4種類（grass, dirt, log, sand）
+- **テクスチャ**: 6ファイル（grass top/side, dirt, log/top, sand）
+- **JSON**: Blockstate 4 + Block model 5 + Item model 4 + Loot table 4 = 17ファイル
+- **バイオーム**: 4種類（plains, forest, desert, river）
+- **ディメンション設定**: dimension_type + level stem
+- **プラットフォーム**: Fabric/NeoForge両対応
+- **推定作業時間**: Phase 2全体で約4-5時間
+
+#### トラブルシューティングプロセス
+
+1. **ブロックがドロップしない** → loot tableのディレクトリ構造確認（`blocks/` vs `block/`）
+2. **クリエイティブタブに表示されない** → 両プラットフォームのクリエイティブタブ登録確認
+3. **Mapping差異エラー** → プラットフォーム側で直接Blockクラス使用（commonのカスタムクラスは避ける）
+4. **ビルド成功だが動作しない** → 必ず実機テストで確認
+
+#### ベストプラクティス
+
+1. **既存コードの構造を確認**
+   - 新規ファイル作成前に必ず既存の同種ファイルを確認
+   - ディレクトリ構造、命名規則、JSONフォーマットを統一
+
+2. **段階的な動作確認**
+   - ビルド成功 ≠ 正常動作
+   - 必ずゲーム内でテストする
+
+3. **プラットフォーム同期**
+   - Fabricで実装したらNeoForgeも同時に実装
+   - クリエイティブタブは特に忘れやすい
+
+4. **ディメンション実装の段階的アプローチ**
+   - Phase 2: ブロックとバイオームの定義（JSON）
+   - Phase 3-6: ポータルシステム
+   - Phase 7: Surface rule + Tree feature（バイオームの完成）
+   - 一度に全てを実装しようとしない
