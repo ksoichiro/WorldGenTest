@@ -123,6 +123,63 @@ public class FabricModItems {
         new BlockItem(GLOWING_MOSS, new Item.Settings())
     );
 
+    // カスタムディメンション用ブロック（Crystal Dimension blocks）
+    public static final Block CRYSTAL_GRASS_BLOCK = Registry.register(
+        Registries.BLOCK,
+        Identifier.of(MOD_ID, "crystal_grass_block"),
+        new Block(AbstractBlock.Settings.create()
+            .strength(0.6F)
+            .sounds(BlockSoundGroup.GRASS))
+    );
+
+    public static final Item CRYSTAL_GRASS_BLOCK_ITEM = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "crystal_grass_block"),
+        new BlockItem(CRYSTAL_GRASS_BLOCK, new Item.Settings())
+    );
+
+    public static final Block CRYSTAL_DIRT = Registry.register(
+        Registries.BLOCK,
+        Identifier.of(MOD_ID, "crystal_dirt"),
+        new Block(AbstractBlock.Settings.create()
+            .strength(0.5F)
+            .sounds(BlockSoundGroup.GRAVEL))
+    );
+
+    public static final Item CRYSTAL_DIRT_ITEM = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "crystal_dirt"),
+        new BlockItem(CRYSTAL_DIRT, new Item.Settings())
+    );
+
+    public static final Block CRYSTAL_LOG = Registry.register(
+        Registries.BLOCK,
+        Identifier.of(MOD_ID, "crystal_log"),
+        new net.minecraft.block.PillarBlock(AbstractBlock.Settings.create()
+            .strength(2.0F)
+            .sounds(BlockSoundGroup.WOOD))
+    );
+
+    public static final Item CRYSTAL_LOG_ITEM = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "crystal_log"),
+        new BlockItem(CRYSTAL_LOG, new Item.Settings())
+    );
+
+    public static final Block CRYSTAL_SAND = Registry.register(
+        Registries.BLOCK,
+        Identifier.of(MOD_ID, "crystal_sand"),
+        new Block(AbstractBlock.Settings.create()  // TODO: Add falling physics later
+            .strength(0.5F)
+            .sounds(BlockSoundGroup.SAND))
+    );
+
+    public static final Item CRYSTAL_SAND_ITEM = Registry.register(
+        Registries.ITEM,
+        Identifier.of(MOD_ID, "crystal_sand"),
+        new BlockItem(CRYSTAL_SAND, new Item.Settings())
+    );
+
     // Crystal Stone Block System - 3 new blocks for crystal stone workflow
 
     // Crystal Stone - naturally generated, drops cobblestone when mined normally

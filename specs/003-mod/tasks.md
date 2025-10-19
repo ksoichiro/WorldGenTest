@@ -28,9 +28,9 @@ description: "Implementation tasks for custom dimension feature"
 
 **Purpose**: Project initialization and resource preparation
 
-- [ ] T001 Verify existing Architectury project structure and dependencies (ModDevGradle 2.0, Terrablender 4.1.0.3)
-- [ ] T002 [P] Create base directory structure for dimension feature: `common/src/main/java/com/example/worldgentest/dimension/`, `common/src/main/java/com/example/worldgentest/portal/`
-- [ ] T003 [P] Create JSON directory structure: `common/src/main/resources/data/worldgentest/dimension_type/`, `common/src/main/resources/data/worldgentest/dimension/`, `common/src/main/resources/data/worldgentest/worldgen/biome/`
+- [X] T001 Verify existing Architectury project structure and dependencies (ModDevGradle 2.0, Terrablender 4.1.0.3)
+- [X] T002 [P] Create base directory structure for dimension feature: `common/src/main/java/com/example/worldgentest/dimension/`, `common/src/main/java/com/example/worldgentest/portal/`
+- [X] T003 [P] Create JSON directory structure: `common/src/main/resources/data/worldgentest/dimension_type/`, `common/src/main/resources/data/worldgentest/dimension/`, `common/src/main/resources/data/worldgentest/worldgen/biome/`
 
 ---
 
@@ -42,19 +42,19 @@ description: "Implementation tasks for custom dimension feature"
 
 ### Custom Dimension Definition (JSON-based)
 
-- [ ] T004 [P] Create dimension type JSON in `common/src/main/resources/data/worldgentest/dimension_type/crystal_dimension.json` (fixed_time=6000, coordinate_scale=1.0, bed_works=true, effects="minecraft:overworld")
-- [ ] T005 [P] Create level stem JSON in `common/src/main/resources/data/worldgentest/dimension/crystal_dimension.json` (noise generator with multi_noise biome source)
-- [ ] T006 Register dimension key constant in `common/src/main/java/com/example/worldgentest/dimension/ModDimensions.java` (ResourceKey<Level> CRYSTAL_DIMENSION)
+- [X] T004 [P] Create dimension type JSON in `common/src/main/resources/data/worldgentest/dimension_type/crystal_dimension.json` (fixed_time=6000, coordinate_scale=1.0, bed_works=true, effects="minecraft:overworld")
+- [X] T005 [P] Create level stem JSON in `common/src/main/resources/data/worldgentest/dimension/crystal_dimension.json` (noise generator with multi_noise biome source)
+- [X] T006 Register dimension key constant in `common/src/main/java/com/example/worldgentest/dimension/ModDimensions.java` (ResourceKey<Level> CRYSTAL_DIMENSION)
 
 ### Custom Blocks Foundation
 
-- [ ] T007 [P] Create CrystalGrassBlock class in `common/src/main/java/com/example/worldgentest/block/CrystalGrassBlock.java` (hardness=0.6, tool=SHOVEL, drop=self)
-- [ ] T008 [P] Create CrystalDirtBlock class in `common/src/main/java/com/example/worldgentest/block/CrystalDirtBlock.java` (hardness=0.5, tool=SHOVEL, drop=self)
-- [ ] T009 [P] Create CrystalLogBlock class in `common/src/main/java/com/example/worldgentest/block/CrystalLogBlock.java` (hardness=2.0, tool=AXE, drop=self)
-- [ ] T010 [P] Create CrystalSandBlock class in `common/src/main/java/com/example/worldgentest/block/CrystalSandBlock.java` (hardness=0.5, tool=SHOVEL, drop=self)
-- [ ] T011 Register custom blocks in `common/src/main/java/com/example/worldgentest/ModBlocks.java` (CRYSTAL_GRASS_BLOCK, CRYSTAL_DIRT, CRYSTAL_LOG, CRYSTAL_SAND)
-- [ ] T012 Register custom block items in Fabric: `fabric/src/main/java/com/example/worldgentest/FabricModBlocks.java`
-- [ ] T013 Register custom block items in NeoForge: `neoforge/src/main/java/com/example/worldgentest/ModBlocks.java`
+- [X] T007 [P] Create CrystalGrassBlock class in `common/src/main/java/com/example/worldgentest/block/CrystalGrassBlock.java` (hardness=0.6, tool=SHOVEL, drop=self)
+- [X] T008 [P] Create CrystalDirtBlock class in `common/src/main/java/com/example/worldgentest/block/CrystalDirtBlock.java` (hardness=0.5, tool=SHOVEL, drop=self)
+- [X] T009 [P] Create CrystalLogBlock class in `common/src/main/java/com/example/worldgentest/block/CrystalLogBlock.java` (hardness=2.0, tool=AXE, drop=self)
+- [X] T010 [P] Create CrystalSandBlock class in `common/src/main/java/com/example/worldgentest/block/CrystalSandBlock.java` (hardness=0.5, tool=SHOVEL, drop=self)
+- [X] T011 Register custom blocks in `common/src/main/java/com/example/worldgentest/ModBlocks.java` (CRYSTAL_GRASS_BLOCK, CRYSTAL_DIRT, CRYSTAL_LOG, CRYSTAL_SAND)
+- [X] T012 Register custom block items in Fabric: `fabric/src/main/java/com/example/worldgentest/FabricModBlocks.java`
+- [X] T013 Register custom block items in NeoForge: `neoforge/src/main/java/com/example/worldgentest/ModBlocks.java`
 
 ### Block Resources (Textures, Models, Loot Tables)
 

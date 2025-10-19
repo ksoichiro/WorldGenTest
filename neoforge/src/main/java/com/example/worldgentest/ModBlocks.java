@@ -138,6 +138,47 @@ SoundEvents.ARMOR_EQUIP_DIAMOND, // 装備音
         new BlockItem(GLOWING_MOSS.get(), new Item.Properties())
     );
 
+    // カスタムディメンション用ブロック（Crystal Dimension blocks）
+    public static final Supplier<Block> CRYSTAL_GRASS_BLOCK = BLOCKS.register("crystal_grass_block", () ->
+        new Block(BlockBehaviour.Properties.of()
+            .strength(0.6F)
+            .sound(SoundType.GRASS))
+    );
+
+    public static final Supplier<Item> CRYSTAL_GRASS_BLOCK_ITEM = ITEMS.register("crystal_grass_block", () ->
+        new BlockItem(CRYSTAL_GRASS_BLOCK.get(), new Item.Properties())
+    );
+
+    public static final Supplier<Block> CRYSTAL_DIRT = BLOCKS.register("crystal_dirt", () ->
+        new Block(BlockBehaviour.Properties.of()
+            .strength(0.5F)
+            .sound(SoundType.GRAVEL))
+    );
+
+    public static final Supplier<Item> CRYSTAL_DIRT_ITEM = ITEMS.register("crystal_dirt", () ->
+        new BlockItem(CRYSTAL_DIRT.get(), new Item.Properties())
+    );
+
+    public static final Supplier<Block> CRYSTAL_LOG = BLOCKS.register("crystal_log", () ->
+        new net.minecraft.world.level.block.RotatedPillarBlock(BlockBehaviour.Properties.of()
+            .strength(2.0F)
+            .sound(SoundType.WOOD))
+    );
+
+    public static final Supplier<Item> CRYSTAL_LOG_ITEM = ITEMS.register("crystal_log", () ->
+        new BlockItem(CRYSTAL_LOG.get(), new Item.Properties())
+    );
+
+    public static final Supplier<Block> CRYSTAL_SAND = BLOCKS.register("crystal_sand", () ->
+        new Block(BlockBehaviour.Properties.of()  // TODO: Add falling physics later
+            .strength(0.5F)
+            .sound(SoundType.SAND))
+    );
+
+    public static final Supplier<Item> CRYSTAL_SAND_ITEM = ITEMS.register("crystal_sand", () ->
+        new BlockItem(CRYSTAL_SAND.get(), new Item.Properties())
+    );
+
     // Crystal Stone Block System - 3 new blocks for crystal stone workflow
 
     // Crystal Stone - naturally generated, drops cobblestone when mined normally
