@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/nether_portal_ew",
+  "textures": {
+    "particle": "worldgentest:block/crystal_portal",
+    "portal": "worldgentest:block/crystal_portal"
+  }
+}

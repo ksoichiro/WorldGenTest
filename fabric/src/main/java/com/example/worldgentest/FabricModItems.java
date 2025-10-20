@@ -180,6 +180,20 @@ public class FabricModItems {
         new BlockItem(CRYSTAL_SAND, new Item.Settings())
     );
 
+    // Portal Block - for dimension travel
+    public static final Block CRYSTAL_PORTAL = Registry.register(
+        Registries.BLOCK,
+        Identifier.of(MOD_ID, "crystal_portal"),
+        new com.example.worldgentest.portal.FabricCrystalPortalBlock(AbstractBlock.Settings.create()
+            .strength(-1.0F, 3600000.0F)  // Unbreakable like bedrock
+            .sounds(BlockSoundGroup.GLASS)
+            .luminance(state -> 11)  // Slightly brighter than crystal block
+            .noCollision()  // Entities can pass through
+            .nonOpaque())  // Transparent
+    );
+
+    // Note: Portal block should not have an item form (cannot be obtained in inventory)
+
     // Crystal Stone Block System - 3 new blocks for crystal stone workflow
 
     // Crystal Stone - naturally generated, drops cobblestone when mined normally

@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "worldgentest:block/crystal_portal_ns"
+    },
+    "axis=z": {
+      "model": "worldgentest:block/crystal_portal_ew"
+    }
+  }
+}

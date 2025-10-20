@@ -179,6 +179,18 @@ SoundEvents.ARMOR_EQUIP_DIAMOND, // 装備音
         new BlockItem(CRYSTAL_SAND.get(), new Item.Properties())
     );
 
+    // Portal Block - for dimension travel
+    public static final Supplier<Block> CRYSTAL_PORTAL = BLOCKS.register("crystal_portal", () ->
+        new com.example.worldgentest.portal.CrystalPortalBlock(BlockBehaviour.Properties.of()
+            .strength(-1.0F, 3600000.0F)  // Unbreakable like bedrock
+            .sound(SoundType.GLASS)
+            .lightLevel(state -> 11)  // Slightly brighter than crystal block
+            .noCollission()  // Entities can pass through
+            .noOcclusion())  // Transparent
+    );
+
+    // Note: Portal block should not have an item form (cannot be obtained in inventory)
+
     // Crystal Stone Block System - 3 new blocks for crystal stone workflow
 
     // Crystal Stone - naturally generated, drops cobblestone when mined normally
