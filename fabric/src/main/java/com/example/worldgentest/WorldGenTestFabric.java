@@ -20,6 +20,10 @@ public class WorldGenTestFabric implements ModInitializer {
         // 既存バイオームへのクリスタル機能追加
         FabricBiomeModifications.register();
 
+        // ポータルイベントの登録（Phase 4）
+        // TODO: Implement Fabric portal events with proper mapping isolation
+        // FabricPortalEvents.register();
+
         // カスタムコマンドの登録
         // FabricCommands.register(); // yarn mapping移行中のため一時的に無効化
     }

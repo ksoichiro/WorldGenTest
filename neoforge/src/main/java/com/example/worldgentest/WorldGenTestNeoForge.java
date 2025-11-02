@@ -29,6 +29,9 @@ public class WorldGenTestNeoForge {
         // TerraBlender登録
         NeoForgeTerraBlenderInit.register(modEventBus);
 
+        // ポータルイベントハンドラーの初期化（Phase 4）
+        ModEvents.initPortalHandler();
+
         // エンティティ属性登録イベント
         modEventBus.addListener(this::entityAttributes);
     }

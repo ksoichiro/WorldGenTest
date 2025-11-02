@@ -1308,3 +1308,146 @@ new Block(BlockBehaviour.Properties.of()...)   // NeoForge
    - Phase 3-6: ポータルシステム
    - Phase 7: Surface rule + Tree feature（バイオームの完成）
    - 一度に全てを実装しようとしない
+
+### カスタムディメンション - Phase 4実装進行中（2025年11月）
+
+#### 🚧 現在の状況（Phase 4: ポータル起動とテレポート）
+
+**実装フェーズ**: User Story 2 - Portal Activation（タスクT059-T072）
+
+**✅ 実装済みの機能**:
+1. **PortalActivationHandler** (`common/src/main/java/com/example/worldgentest/portal/PortalActivationHandler.java`)
+   - ポータル起動ロジック（クリスタルの欠片で起動）
+   - フレーム検証と内部空間へのポータルブロック配置
+   - 紫色のパーティクルエフェクト（PORTAL particle）
+   - 効果音（PORTAL_TRIGGER sound）
+   - プラットフォームmapping差異対応（Object型オーバーロード）
+
+2. **CrystalDimensionTeleporter** (`common/src/main/java/com/example/worldgentest/dimension/CrystalDimensionTeleporter.java`)
+   - 座標スケーリング計算（1:4比率、Nether同様）
+   - 安全な出現位置検索（上下64ブロック範囲）
+   - 緊急スポーンプラットフォーム生成（3x3黒曜石）
+   - 次元判定ロジック
+
+3. **PlatformTeleporter** (`common/src/main/java/com/example/worldgentest/dimension/PlatformTeleporter.java`)
+   - @ExpectPlatformインターフェース定義
+   - プラットフォーム固有のテレポート処理の抽象化
+
+4. **CrystalPortalBlock拡張** (`common/src/main/java/com/example/worldgentest/portal/CrystalPortalBlock.java`)
+   - エンティティ滞在時間トラッキング（Map<UUID, PortalDwellTracker>）
+   - 4秒（80tick）待機後のテレポート実行
+   - エンティティ衝突検知（entityInside）
+   - テレポート試行ロジック統合
+
+5. **NeoForge イベントハンドラ** (`neoforge/src/main/java/com/example/worldgentest/ModEvents.java`)
+   - PlayerInteractEvent.RightClickBlockイベント処理
+   - PortalActivationHandlerの初期化と呼び出し
+
+**⏳ 未実装（残タスク）**:
+- [ ] **Fabric イベントハンドラ登録** (`fabric/src/main/java/com/example/worldgentest/WorldGenTestFabric.java`)
+  - UseBlockCallback.EVENT登録が必要
+  - PortalActivationHandlerの初期化と呼び出し
+
+- [ ] **Fabric PlatformTeleporterImpl** (`fabric/src/main/java/com/example/worldgentest/dimension/PlatformTeleporterImpl.java`)
+  - FabricDimensions.teleportを使用したテレポート実装
+  - Yarn mapping対応
+
+- [ ] **NeoForge PlatformTeleporterImpl** (`neoforge/src/main/java/com/example/worldgentest/dimension/PlatformTeleporterImpl.java`)
+  - Entity.changeDimension or ServerLevel.teleportを使用
+  - Mojang mapping対応
+
+- [ ] **ModEvents初期化呼び出し** (`neoforge/src/main/java/com/example/worldgentest/WorldGenTestNeoForge.java`)
+  - ModEvents.initPortalHandler()の呼び出し
+  - ブロック登録後に実行する必要がある
+
+- [ ] **ディメンションキー登録** (`common/src/main/java/com/example/worldgentest/dimension/ModDimensions.java`)
+  - ResourceKey<Level> CRYSTAL_DIMENSIONの定義
+  - getTargetDimension()での使用（現在はプレースホルダー）
+
+#### 技術的決定事項
+
+##### 1. @ExpectPlatformパターンの採用
+- Fabric（FabricDimensions.teleport）とNeoForge（Entity.changeDimension）でAPIが異なる
+- 共通インターフェースでプラットフォーム差異を吸収
+- 実装パターン：
+  ```java
+  // common/PlatformTeleporter.java
+  @ExpectPlatform
+  public static void teleportEntity(Entity entity, ServerLevel targetLevel, BlockPos targetPos)
+
+  // fabric/PlatformTeleporterImpl.java
+  public static void teleportEntity(Entity entity, ServerLevel targetLevel, BlockPos targetPos) {
+      FabricDimensions.teleport(entity, targetLevel, new TeleportTarget(...));
+  }
+
+  // neoforge/PlatformTeleporterImpl.java
+  public static void teleportEntity(Entity entity, ServerLevel targetLevel, BlockPos targetPos) {
+      entity.changeDimension(new DimensionTransition(targetLevel, targetPos, ...));
+  }
+  ```
+
+##### 2. エンティティ滞在時間トラッキング
+- 静的Map<UUID, PortalDwellTracker>でエンティティごとの時間を管理
+- メモリリーク防止のため、cleanupInactiveTrackers()メソッドを実装
+- 80tick（4秒）でテレポート発動
+
+##### 3. 座標スケーリング（1:4比率）
+- Overworld → Crystal Dimension: 座標を4で割る（狭い空間）
+- Crystal Dimension → Overworld: 座標を4倍（広がる）
+- ネザーと同様のパターン、既存プレイヤーに直感的
+
+##### 4. 安全なスポーン位置検索
+- 目標Y=64から上下64ブロック範囲を探索
+- 固体ブロック下、2ブロック分の空気必要
+- 見つからない場合: 3x3黒曜石プラットフォーム自動生成
+
+##### 5. プラットフォームmapping差異への対応
+- PortalActivationHandlerにObject型オーバーロードを追加
+- Fabric（Yarn）とNeoForge（Mojang）の型差異をランタイムキャストで解決
+- 例: Level, BlockPos, ItemStackはどちらでも同じ名前だがパッケージが異なる
+
+#### 次のステップ
+
+1. **PlatformTeleporterImpl実装** (Fabric/NeoForge)
+   - 各プラットフォームの正しいテレポートAPI使用
+   - Minecraft 1.21.1での最新APIを確認
+
+2. **ディメンションキー登録**
+   - ModDimensions.javaでResourceKey定義
+   - getTargetDimension()のプレースホルダーを置き換え
+
+3. **イベントハンドラ統合**
+   - Fabric: WorldGenTestFabric.javaでUseBlockCallback登録
+   - NeoForge: WorldGenTestNeoForge.javaでinitPortalHandler()呼び出し
+
+4. **動作テスト**
+   - ポータル起動（パーティクル・効果音確認）
+   - 4秒待機後のテレポート
+   - 座標スケーリング確認
+   - 往復テスト（Overworld ↔ Crystal Dimension）
+
+#### 学習ポイント
+
+- **@ExpectPlatformの有用性**: プラットフォーム固有APIの差異を効果的に隠蔽
+- **静的Mapの使用**: ブロッククラスでのエンティティ状態管理パターン
+- **メモリリーク対策**: 長期実行されるゲームでの重要性
+- **段階的実装**: 大きな機能を小さなコンポーネントに分割して実装
+- **プレースホルダー戦略**: 未実装部分を明示的にマーク（TODO、プレースホルダーコメント）
+
+#### 既知の問題・TODO
+
+1. **ディメンションが未登録**: getTargetDimension()が常にOVERWORLDを返す
+   - 原因: ResourceKey<Level> CRYSTAL_DIMENSIONが未定義
+   - 対策: ModDimensions.javaで定義し、サーバーのgetLevel()で取得
+
+2. **PortalForcer未実装**: Phase 5でポータルリンク機能を実装予定
+   - 現状: テレポート先に既存ポータルがあってもリンクしない
+   - 必要: 128ブロック範囲でポータル検索、なければ自動生成
+
+3. **クリスタルの欠片判定**: 現在は文字列比較（contains("crystal_shard")）
+   - 改善: ModItems.CRYSTAL_SHARDへの直接参照が望ましい
+   - 課題: commonからplatform registryへのアクセス方法を検討
+
+4. **パーティクルの最適化**: 大きなポータル（21x21）で大量のパーティクル
+   - 現状: 各ブロックで5個 → 21×21×5 = 2,205個
+   - 改善: サイズに応じたパーティクル数調整を検討
